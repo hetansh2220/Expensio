@@ -20,22 +20,22 @@ export default function TopBar() {
 
   return (
     <header className="sticky top-0 z-30 glass-strong">
-      <div className="flex items-center justify-between px-5 py-4 max-w-lg mx-auto lg:max-w-5xl lg:px-8">
+      <div className="flex items-center justify-between px-5 py-5 max-w-lg mx-auto lg:max-w-5xl lg:px-8">
         <div className="flex items-center gap-3">
           <Link
             href={ROUTES.SETTINGS}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary/25 to-savings/25 border border-border-subtle lg:hidden"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#D1FAE5] to-[#A7F3D0] border border-[#E2E8F0] shadow-sm lg:hidden"
           >
-            <span className="text-sm font-bold text-primary-light">{initial}</span>
+            <span className="text-sm font-bold text-[#059669]">{initial}</span>
           </Link>
           <div>
             <p className="text-xs text-muted font-medium">{getGreeting()}</p>
-            <p className="text-sm font-semibold text-foreground font-[family-name:var(--font-display)]">
+            <p className="text-base font-semibold text-foreground font-[family-name:var(--font-display)]">
               {firstName}
             </p>
           </div>
         </div>
-        <button className="relative flex items-center justify-center w-10 h-10 rounded-full bg-surface-overlay border border-border-subtle transition-colors hover:border-border">
+        <button className="relative flex items-center justify-center w-10 h-10 rounded-full bg-white border border-[#E2E8F0] shadow-sm transition-colors hover:border-border">
           <HiOutlineBell className="w-5 h-5 text-muted" />
         </button>
       </div>

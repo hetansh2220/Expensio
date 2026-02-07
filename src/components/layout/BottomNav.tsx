@@ -53,9 +53,9 @@ export default function BottomNav() {
                   setShowMore(false);
                 }}
                 className={clsx(
-                  "w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors",
+                  "w-full text-left px-4 py-3.5 rounded-2xl text-sm font-medium transition-colors",
                   pathname.startsWith(item.href)
-                    ? "text-primary bg-primary/15"
+                    ? "text-[#059669] bg-[#D1FAE5]"
                     : "text-foreground/70 hover:bg-surface-overlay hover:text-foreground"
                 )}
               >
@@ -75,7 +75,7 @@ export default function BottomNav() {
                 <Link
                   key="fab"
                   href={tab.href}
-                  className="relative -mt-6 flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-primary/30 active:scale-95 transition-transform"
+                  className="relative -mt-6 flex items-center justify-center w-14 h-14 rounded-2xl bg-[#059669] shadow-lg shadow-[#059669]/25 hover:bg-[#047857] active:scale-95 transition-all"
                 >
                   <HiOutlinePlus className="w-7 h-7 text-white" strokeWidth={2.5} />
                   <div className="absolute inset-0 rounded-2xl bg-white/10 opacity-0 hover:opacity-100 transition-opacity" />
@@ -102,7 +102,7 @@ export default function BottomNav() {
                 )}
               >
                 <tab.icon className="w-6 h-6" />
-                <span className="text-[10px] font-semibold tracking-wide">{tab.label}</span>
+                <span className="text-[11px] font-semibold tracking-wide">{tab.label}</span>
                 {active && (
                   <div className="absolute bottom-1 w-4 h-0.5 rounded-full bg-primary" />
                 )}

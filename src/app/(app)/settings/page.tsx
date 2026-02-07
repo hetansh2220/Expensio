@@ -75,13 +75,13 @@ export default function SettingsPage() {
   const initial = (profile?.displayName || user?.displayName || "U").charAt(0).toUpperCase();
 
   return (
-    <div className="py-4 animate-fade-in lg:max-w-2xl">
-      <h1 className="text-lg lg:text-xl font-bold font-[family-name:var(--font-display)] mb-6">Settings</h1>
+    <div className="py-6 animate-fade-in lg:max-w-2xl">
+      <h1 className="text-xl font-bold font-[family-name:var(--font-display)] mb-6">Settings</h1>
 
       {/* Profile card */}
-      <div className="card card-glow p-6 flex flex-col items-center mb-6 lg:flex-row lg:gap-6 lg:items-center">
-        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/25 to-savings/25 border-2 border-border flex items-center justify-center mb-3">
-          <span className="text-2xl font-bold text-primary-light font-[family-name:var(--font-display)]">{initial}</span>
+      <div className="card card-glow p-7 lg:p-8 flex flex-col items-center mb-6 lg:flex-row lg:gap-6 lg:items-center">
+        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#D1FAE5] to-[#A7F3D0] border-2 border-[#E2E8F0] shadow-md flex items-center justify-center mb-3">
+          <span className="text-2xl font-bold text-[#059669] font-[family-name:var(--font-display)]">{initial}</span>
         </div>
         <h2 className="text-lg font-bold text-foreground font-[family-name:var(--font-display)]">
           {profile?.displayName || user?.displayName || "User"}
@@ -91,32 +91,32 @@ export default function SettingsPage() {
 
       {/* Info rows */}
       <div className="card divide-y divide-border-subtle">
-        <div className="flex items-center gap-4 p-4">
-          <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
-            <HiOutlineEnvelope className="w-5 h-5 text-primary" />
+        <div className="flex items-center gap-4 p-5">
+          <div className="w-12 h-12 rounded-2xl bg-[#DBEAFE] flex items-center justify-center">
+            <HiOutlineEnvelope className="w-5 h-5 text-[#3B82F6]" />
           </div>
           <div className="flex-1">
-            <p className="text-[10px] text-muted uppercase font-semibold tracking-widest">Email</p>
+            <p className="text-[11px] text-muted uppercase font-semibold tracking-wider">Email</p>
             <p className="text-sm text-foreground">{user?.email}</p>
           </div>
         </div>
-        <div className="flex items-center gap-4 p-4">
-          <div className="w-10 h-10 rounded-xl bg-warning/15 flex items-center justify-center">
-            <HiOutlineBriefcase className="w-5 h-5 text-warning" />
+        <div className="flex items-center gap-4 p-5">
+          <div className="w-12 h-12 rounded-2xl bg-[#FEF3C7] flex items-center justify-center">
+            <HiOutlineBriefcase className="w-5 h-5 text-[#F59E0B]" />
           </div>
           <div className="flex-1">
-            <p className="text-[10px] text-muted uppercase font-semibold tracking-widest">Profession</p>
+            <p className="text-[11px] text-muted uppercase font-semibold tracking-wider">Profession</p>
             <p className="text-sm text-foreground">{professionLabel}</p>
           </div>
         </div>
 
         {/* Monthly Income — editable */}
-        <div className="flex items-center gap-4 p-4">
-          <div className="w-10 h-10 rounded-xl bg-success/15 flex items-center justify-center">
-            <HiOutlineCurrencyRupee className="w-5 h-5 text-success" />
+        <div className="flex items-center gap-4 p-5">
+          <div className="w-12 h-12 rounded-2xl bg-[#D1FAE5] flex items-center justify-center">
+            <HiOutlineCurrencyRupee className="w-5 h-5 text-[#059669]" />
           </div>
           <div className="flex-1">
-            <p className="text-[10px] text-muted uppercase font-semibold tracking-widest">Monthly Income</p>
+            <p className="text-[11px] text-muted uppercase font-semibold tracking-wider">Monthly Income</p>
             <p className="text-sm text-foreground">
               {formatCurrency(profile?.monthlyIncome || 0)}
               <span className="text-xs text-muted ml-1">({profile?.incomeType || "—"})</span>
@@ -124,7 +124,7 @@ export default function SettingsPage() {
           </div>
           <button
             onClick={openEditor}
-            className="p-2 rounded-xl hover:bg-primary/10 transition-colors text-primary"
+            className="p-2 rounded-2xl hover:bg-[#D1FAE5] transition-colors text-[#059669]"
           >
             <HiOutlinePencilSquare className="w-5 h-5" />
           </button>
@@ -132,19 +132,19 @@ export default function SettingsPage() {
 
         {/* Salary Date (if fixed income) */}
         {profile?.incomeType === "fixed" && (
-          <div className="flex items-center gap-4 p-4">
-            <div className="w-10 h-10 rounded-xl bg-savings/15 flex items-center justify-center">
-              <HiOutlineCalendarDays className="w-5 h-5 text-savings" />
+          <div className="flex items-center gap-4 p-5">
+            <div className="w-12 h-12 rounded-2xl bg-[#DBEAFE] flex items-center justify-center">
+              <HiOutlineCalendarDays className="w-5 h-5 text-[#3B82F6]" />
             </div>
             <div className="flex-1">
-              <p className="text-[10px] text-muted uppercase font-semibold tracking-widest">Salary Date</p>
+              <p className="text-[11px] text-muted uppercase font-semibold tracking-wider">Salary Date</p>
               <p className="text-sm text-foreground">
                 {profile?.salaryDate ? `${profile.salaryDate}th of every month` : "Not set"}
               </p>
             </div>
             <button
               onClick={openEditor}
-              className="p-2 rounded-xl hover:bg-primary/10 transition-colors text-primary"
+              className="p-2 rounded-2xl hover:bg-[#D1FAE5] transition-colors text-[#059669]"
             >
               <HiOutlinePencilSquare className="w-5 h-5" />
             </button>
@@ -164,7 +164,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Income amount */}
-            <label className="text-[10px] text-muted uppercase font-semibold tracking-widest mb-2 block">
+            <label className="text-[11px] text-muted uppercase font-semibold tracking-wider mb-2 block">
               Monthly Income (₹)
             </label>
             <div className="relative mb-5">
@@ -184,9 +184,9 @@ export default function SettingsPage() {
                   key={amt}
                   onClick={() => setIncomeValue(String(amt))}
                   className={clsx(
-                    "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border",
+                    "px-3 py-1.5 rounded-full text-xs font-semibold transition-all border",
                     Number(incomeValue) === amt
-                      ? "bg-primary/10 border-primary text-primary"
+                      ? "bg-[#D1FAE5] border-[#059669]/30 text-[#059669]"
                       : "bg-surface-overlay border-border-subtle text-muted hover:text-foreground hover:border-border"
                   )}
                 >
@@ -198,7 +198,7 @@ export default function SettingsPage() {
             {/* Salary date (fixed income only) */}
             {profile?.incomeType === "fixed" && (
               <>
-                <label className="text-[10px] text-muted uppercase font-semibold tracking-widest mb-2 block">
+                <label className="text-[11px] text-muted uppercase font-semibold tracking-wider mb-2 block">
                   Salary Date (day of month)
                 </label>
                 <div className="grid grid-cols-7 gap-1.5 mb-5">
@@ -223,7 +223,7 @@ export default function SettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving || !incomeValue}
-              className="w-full h-12 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-sm disabled:opacity-40 transition-all hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center gap-2"
+              className="w-full h-14 rounded-2xl bg-[#059669] text-white font-semibold text-base shadow-lg shadow-[#059669]/25 disabled:opacity-40 transition-all hover:bg-[#047857] hover:shadow-xl flex items-center justify-center gap-2"
             >
               <HiOutlineCheck className="w-5 h-5" />
               {saving ? "Saving..." : "Save Changes"}
@@ -235,7 +235,7 @@ export default function SettingsPage() {
       {/* Sign out */}
       <button
         onClick={handleSignOut}
-        className="w-full mt-6 flex items-center justify-center gap-2 h-12 rounded-2xl border border-danger/25 text-danger text-sm font-semibold hover:bg-danger/10 transition-colors"
+        className="w-full mt-6 flex items-center justify-center gap-2 h-14 rounded-2xl border border-danger/25 text-danger text-base font-semibold hover:bg-danger/10 transition-colors"
       >
         <HiOutlineArrowRightOnRectangle className="w-5 h-5" />
         Sign Out

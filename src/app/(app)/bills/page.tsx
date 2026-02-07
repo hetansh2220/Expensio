@@ -153,12 +153,12 @@ export default function BillsPage() {
   }
 
   return (
-    <div className="py-4 animate-fade-in">
+    <div className="py-6 animate-fade-in">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-lg lg:text-xl font-bold font-[family-name:var(--font-display)]">Bills & EMI</h1>
         <Link
           href={ROUTES.ADD_BILL}
-          className="flex items-center gap-1 px-3 py-2 rounded-xl bg-primary/10 text-primary text-xs font-semibold hover:bg-primary/20 transition-colors"
+          className="flex items-center gap-1 px-4 py-2 rounded-full bg-[#D1FAE5] text-[#059669] text-xs font-bold hover:bg-[#D1FAE5]/80 transition-colors"
         >
           <HiOutlinePlus className="w-4 h-4" />
           Add
@@ -167,14 +167,14 @@ export default function BillsPage() {
 
       {/* Monthly summary bar */}
       {bills.length > 0 && (
-        <div className="card p-4 mb-6 flex items-center justify-between">
+        <div className="card p-5 mb-6 flex items-center justify-between">
           <div>
-            <p className="text-[10px] text-muted font-semibold uppercase tracking-widest">Total Monthly</p>
-            <p className="text-lg font-bold font-[family-name:var(--font-mono)] text-foreground">{formatCurrency(totalMonthly)}</p>
+            <p className="text-[11px] text-muted font-semibold uppercase tracking-wider">Total Monthly</p>
+            <p className="text-xl font-bold font-[family-name:var(--font-mono)] text-foreground">{formatCurrency(totalMonthly)}</p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] text-muted font-semibold uppercase tracking-widest">Unpaid</p>
-            <p className={clsx("text-lg font-bold font-[family-name:var(--font-mono)]", unpaidTotal > 0 ? "text-danger" : "text-success")}>
+            <p className="text-[11px] text-muted font-semibold uppercase tracking-wider">Unpaid</p>
+            <p className={clsx("text-xl font-bold font-[family-name:var(--font-mono)]", unpaidTotal > 0 ? "text-danger" : "text-success")}>
               {formatCurrency(unpaidTotal)}
             </p>
           </div>
@@ -183,13 +183,13 @@ export default function BillsPage() {
 
       {bills.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20">
-          <div className="w-16 h-16 rounded-full bg-surface-overlay flex items-center justify-center mb-4">
-            <HiOutlineClock className="w-8 h-8 text-muted" />
+          <div className="w-16 h-16 rounded-2xl bg-[#FEF3C7] flex items-center justify-center mb-4">
+            <HiOutlineClock className="w-8 h-8 text-[#F59E0B]" />
           </div>
           <p className="text-sm text-muted font-medium">No bills tracked</p>
           <Link
             href={ROUTES.ADD_BILL}
-            className="mt-4 px-4 py-2 rounded-xl bg-primary/10 text-primary text-xs font-semibold"
+            className="mt-4 px-5 py-2.5 rounded-2xl bg-[#059669] text-white text-sm font-semibold shadow-md shadow-[#059669]/20 hover:bg-[#047857] transition-all"
           >
             Add your first bill
           </Link>
@@ -202,15 +202,15 @@ export default function BillsPage() {
                 <div key={section.label}>
                   <div className="flex items-center gap-2 mb-2 px-1">
                     {section.icon}
-                    <span className={clsx("text-[10px] font-bold uppercase tracking-widest", section.color)}>
+                    <span className={clsx("text-[11px] font-bold uppercase tracking-wider", section.color)}>
                       {section.label} ({section.items.length})
                     </span>
                   </div>
                   <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-3 lg:space-y-0">
                     {section.items.map((bill) => (
-                      <div key={bill.id} className="card p-4 flex items-center gap-3">
+                      <div key={bill.id} className="card p-5 flex items-center gap-4">
                         <div
-                          className={clsx("w-10 h-10 rounded-xl flex items-center justify-center shrink-0", {
+                          className={clsx("w-12 h-12 rounded-2xl flex items-center justify-center shrink-0", {
                             "bg-danger/15": isOverdue(bill.dueDate, bill.isPaid),
                             "bg-warning/15": !bill.isPaid && isDueSoon(bill.dueDate, 7),
                             "bg-success/15": bill.isPaid,
@@ -220,9 +220,9 @@ export default function BillsPage() {
                           <span className="text-lg">{bill.isEMI ? "🏦" : "📄"}</span>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-foreground truncate">{bill.name}</p>
+                          <p className="text-sm font-bold text-foreground truncate">{bill.name}</p>
                           <div className="flex items-center gap-2 mt-0.5">
-                            <span className="text-[10px] text-muted">Due: {bill.dueDate}th</span>
+                            <span className="text-xs text-muted">Due: {bill.dueDate}th</span>
                             {bill.isEMI && bill.emiTotalMonths && (
                               <span className="text-[10px] text-emi font-semibold">
                                 EMI {bill.emiCompletedMonths || 0}/{bill.emiTotalMonths}
@@ -235,14 +235,14 @@ export default function BillsPage() {
                             )}
                           </div>
                         </div>
-                        <p className="text-sm font-bold font-[family-name:var(--font-mono)] text-foreground">
+                        <p className="text-base font-bold font-[family-name:var(--font-mono)] text-foreground">
                           {formatCurrency(bill.amount)}
                         </p>
                         <div className="flex items-center gap-1.5 ml-1">
                           <button
                             onClick={() => bill.isPaid ? handleMarkUnpaid(bill.id) : handleMarkPaid(bill.id)}
                             className={clsx(
-                              "px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all flex items-center gap-1.5",
+                              "px-3.5 py-2 rounded-full text-[11px] font-bold transition-all flex items-center gap-1.5",
                               bill.isPaid
                                 ? "bg-success/15 text-success hover:bg-success/20"
                                 : "bg-surface-overlay border border-border-subtle text-muted hover:border-success/40 hover:text-success"

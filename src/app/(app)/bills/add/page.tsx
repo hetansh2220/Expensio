@@ -47,20 +47,20 @@ export default function AddBillPage() {
   };
 
   return (
-    <div className="py-4 animate-fade-in">
+    <div className="py-6 animate-fade-in">
       <div className="flex items-center gap-3 mb-8">
         <button
           onClick={() => router.back()}
-          className="w-10 h-10 rounded-xl bg-surface-overlay border border-border-subtle flex items-center justify-center hover:border-border transition-colors"
+          className="w-11 h-11 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex items-center justify-center hover:shadow-md transition-all"
         >
           <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
         </button>
-        <h1 className="text-lg font-bold font-[family-name:var(--font-display)]">Add Bill / EMI</h1>
+        <h1 className="text-xl font-bold font-[family-name:var(--font-display)]">Add Bill / EMI</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5 lg:max-w-xl">
         <div>
-          <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Bill Name</label>
+          <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Bill Name</label>
           <input
             type="text"
             value={name}
@@ -72,7 +72,7 @@ export default function AddBillPage() {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Amount</label>
+            <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Amount</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-muted/50">₹</span>
               <input
@@ -85,7 +85,7 @@ export default function AddBillPage() {
             </div>
           </div>
           <div>
-            <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Due Day</label>
+            <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Due Day</label>
             <input
               type="number"
               min="1"
@@ -99,7 +99,7 @@ export default function AddBillPage() {
         </div>
 
         <div>
-          <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Frequency</label>
+          <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Frequency</label>
           <div className="grid grid-cols-4 gap-2">
             {(["monthly", "quarterly", "yearly", "one_time"] as BillFrequency[]).map((f) => (
               <button
@@ -107,9 +107,9 @@ export default function AddBillPage() {
                 type="button"
                 onClick={() => setFrequency(f)}
                 className={clsx(
-                  "py-2 rounded-xl text-xs font-semibold transition-all border capitalize",
+                  "py-2.5 rounded-2xl text-xs font-semibold transition-all border capitalize",
                   frequency === f
-                    ? "bg-primary/15 border-primary/30 text-primary"
+                    ? "bg-[#D1FAE5] border-[#059669]/30 text-[#059669]"
                     : "bg-surface-overlay border-border-subtle text-muted hover:border-border"
                 )}
               >
@@ -139,7 +139,7 @@ export default function AddBillPage() {
         {isEMI && (
           <div className="grid grid-cols-2 gap-3 animate-scale-in">
             <div>
-              <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Total Months</label>
+              <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Total Months</label>
               <input
                 type="number"
                 value={emiTotalMonths}
@@ -149,7 +149,7 @@ export default function AddBillPage() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Months Done</label>
+              <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Months Done</label>
               <input
                 type="number"
                 value={emiCompletedMonths}
@@ -164,7 +164,7 @@ export default function AddBillPage() {
         <button
           type="submit"
           disabled={addMutation.isPending || !name || !amount || !dueDate}
-          className="w-full h-14 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-sm transition-all hover:shadow-lg hover:shadow-primary/25 disabled:opacity-50"
+          className="w-full h-14 rounded-2xl bg-[#059669] text-white font-semibold text-base shadow-lg shadow-[#059669]/25 hover:bg-[#047857] transition-all disabled:opacity-50"
         >
           {addMutation.isPending ? "Adding..." : "Add Bill"}
         </button>

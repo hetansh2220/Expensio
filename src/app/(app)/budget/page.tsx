@@ -69,13 +69,13 @@ export default function BudgetPage() {
 
   if (!budget || showSetup) {
     return (
-      <div className="py-4 animate-fade-in">
-        <h1 className="text-lg font-bold font-[family-name:var(--font-display)] mb-1">Set Budget</h1>
+      <div className="py-6 animate-fade-in">
+        <h1 className="text-xl font-bold font-[family-name:var(--font-display)] mb-1">Set Budget</h1>
         <p className="text-sm text-muted mb-8">{getMonthLabel(month)}</p>
 
         <form onSubmit={handleSetBudget} className="space-y-6 lg:max-w-xl">
           <div>
-            <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Monthly Budget</label>
+            <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Monthly Budget</label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl font-bold text-muted/50">₹</span>
               <input
@@ -86,11 +86,11 @@ export default function BudgetPage() {
                 className="w-full h-14 pl-10 pr-4 rounded-2xl bg-surface border border-border-subtle text-xl font-bold text-foreground font-[family-name:var(--font-mono)] placeholder:text-muted/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
               />
             </div>
-            <p className="text-[10px] text-muted mt-2">We suggest 50% Needs, 30% Wants, 20% EMI</p>
+            <p className="text-xs text-muted mt-2">We suggest 50% Needs, 30% Wants, 20% EMI</p>
           </div>
 
           <div>
-            <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Saving Goal (optional)</label>
+            <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Saving Goal (optional)</label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl font-bold text-muted/50">₹</span>
               <input
@@ -106,7 +106,7 @@ export default function BudgetPage() {
           <button
             type="submit"
             disabled={setBudgetMutation.isPending || !budgetLimit}
-            className="w-full h-14 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-sm transition-all hover:shadow-lg hover:shadow-primary/25 disabled:opacity-50"
+            className="w-full h-14 rounded-2xl bg-[#059669] text-white font-semibold text-base shadow-lg shadow-[#059669]/25 hover:bg-[#047857] transition-all disabled:opacity-50"
           >
             {setBudgetMutation.isPending ? "Setting..." : "Set Budget"}
           </button>
@@ -127,10 +127,10 @@ export default function BudgetPage() {
   const savingsPercent = budget.savingGoal > 0 ? Math.min(100, Math.round((totalSavings / budget.savingGoal) * 100)) : 0;
 
   return (
-    <div className="py-4 animate-fade-in space-y-4">
+    <div className="py-6 animate-fade-in space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg lg:text-xl font-bold font-[family-name:var(--font-display)]">Budget</h1>
+          <h1 className="text-xl font-bold font-[family-name:var(--font-display)]">Budget</h1>
           <p className="text-xs text-muted">{getMonthLabel(month)}</p>
         </div>
         <button
@@ -139,7 +139,7 @@ export default function BudgetPage() {
             setSavingGoal(String(budget.savingGoal || ""));
             setShowSetup(true);
           }}
-          className="text-xs text-primary font-semibold hover:text-primary-light transition-colors"
+          className="text-xs text-[#059669] font-semibold px-3 py-1.5 rounded-full bg-[#D1FAE5] hover:bg-[#D1FAE5]/80 transition-colors"
         >
           Edit
         </button>
@@ -147,7 +147,7 @@ export default function BudgetPage() {
 
       {/* Donut chart + Saving goal: side-by-side on desktop */}
       <div className="lg:grid lg:grid-cols-2 lg:gap-4 space-y-4 lg:space-y-0">
-      <div className="card card-glow p-5">
+      <div className="card card-glow p-6 lg:p-7">
         <div className="flex items-center gap-4">
           <div className="w-32 h-32 lg:w-40 lg:h-40 shrink-0">
             <ResponsiveContainer width="100%" height="100%">
@@ -173,7 +173,7 @@ export default function BudgetPage() {
             <p className="text-3xl font-extrabold font-[family-name:var(--font-display)]">
               {usagePercent}<span className="text-sm text-muted">%</span>
             </p>
-            <p className="text-[10px] text-muted">of {formatCurrency(budget.monthlyLimit)} used</p>
+            <p className="text-xs text-muted">of {formatCurrency(budget.monthlyLimit)} used</p>
             <div className="mt-3 space-y-2.5">
               {[
                 { label: "Needs", value: spending.needs, limit: budget.needsLimit, color: COLORS.needs },
@@ -185,7 +185,7 @@ export default function BudgetPage() {
                   <div key={item.label}>
                     <div className="flex items-center gap-2 mb-0.5">
                       <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
-                      <span className="text-[10px] text-muted flex-1">{item.label}</span>
+                      <span className="text-xs text-muted flex-1">{item.label}</span>
                       <span className="text-[10px] font-bold text-foreground font-[family-name:var(--font-mono)]">
                         {formatCurrency(item.value)} <span className="text-muted font-normal">/ {formatCurrency(item.limit)}</span>
                       </span>
@@ -206,20 +206,20 @@ export default function BudgetPage() {
 
       {/* Saving goal */}
       {budget.savingGoal > 0 && (
-        <div className="card card-glow p-5">
+        <div className="card card-glow p-6">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs font-semibold text-muted uppercase tracking-widest">Saving Goal</h3>
+            <h3 className="text-xs font-semibold text-muted uppercase tracking-wider">Saving Goal</h3>
             <span className="text-xs font-bold text-savings">{savingsPercent}%</span>
           </div>
-          <div className="w-full h-3 rounded-full bg-surface-overlay overflow-hidden">
+          <div className="w-full h-3.5 rounded-full bg-surface-overlay overflow-hidden">
             <div
               className="h-full rounded-full bg-gradient-to-r from-savings to-savings-light transition-all duration-700"
               style={{ width: `${savingsPercent}%` }}
             />
           </div>
           <div className="flex justify-between mt-2">
-            <span className="text-[10px] text-muted">{formatCurrency(totalSavings)} saved</span>
-            <span className="text-[10px] text-muted">Goal: {formatCurrency(budget.savingGoal)}</span>
+            <span className="text-xs text-muted">{formatCurrency(totalSavings)} saved</span>
+            <span className="text-xs text-muted">Goal: {formatCurrency(budget.savingGoal)}</span>
           </div>
         </div>
       )}

@@ -54,16 +54,16 @@ export default function AddTransactionPage() {
   };
 
   return (
-    <div className="py-4 animate-fade-in">
+    <div className="py-6 animate-fade-in">
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <button
           onClick={() => router.back()}
-          className="w-10 h-10 rounded-xl bg-surface-overlay border border-border-subtle flex items-center justify-center hover:border-border transition-colors"
+          className="w-11 h-11 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex items-center justify-center hover:shadow-md transition-all"
         >
           <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
         </button>
-        <h1 className="text-lg font-bold font-[family-name:var(--font-display)]">Add Transaction</h1>
+        <h1 className="text-xl font-bold font-[family-name:var(--font-display)]">Add Transaction</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 lg:max-w-xl">
@@ -88,7 +88,7 @@ export default function AddTransactionPage() {
 
         {/* Amount */}
         <div>
-          <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Amount</label>
+          <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Amount</label>
           <div className="relative">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-muted/50">₹</span>
             <input
@@ -105,7 +105,7 @@ export default function AddTransactionPage() {
         {/* Category (expense only) */}
         {type === "expense" && (
           <div>
-            <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Category</label>
+            <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Category</label>
             <div className="grid grid-cols-3 gap-2">
               {EXPENSE_CATEGORIES.map((cat) => (
                 <button
@@ -130,7 +130,7 @@ export default function AddTransactionPage() {
 
         {/* Description */}
         <div>
-          <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Description</label>
+          <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Description</label>
           <input
             type="text"
             value={description}
@@ -142,7 +142,7 @@ export default function AddTransactionPage() {
 
         {/* Date */}
         <div>
-          <label className="text-[10px] font-semibold text-muted uppercase tracking-widest block mb-2">Date</label>
+          <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Date</label>
           <input
             type="date"
             value={date}
@@ -156,7 +156,7 @@ export default function AddTransactionPage() {
           type="submit"
           disabled={addMutation.isPending || !amount}
           className={clsx(
-            "w-full h-14 rounded-2xl font-semibold text-white text-sm transition-all disabled:opacity-50",
+            "w-full h-14 rounded-2xl font-semibold text-white text-base shadow-lg transition-all disabled:opacity-50",
             type === "income" && "bg-gradient-to-r from-success to-success-light hover:shadow-lg hover:shadow-success/25",
             type === "expense" && "bg-gradient-to-r from-danger to-danger-light hover:shadow-lg hover:shadow-danger/25",
             type === "savings" && "bg-gradient-to-r from-savings to-savings-light hover:shadow-lg hover:shadow-savings/25"

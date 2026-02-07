@@ -68,13 +68,13 @@ export default function ChallengesPage() {
   }
 
   return (
-    <div className="py-4 animate-fade-in space-y-6">
+    <div className="py-6 animate-fade-in space-y-8">
       <h1 className="text-lg lg:text-xl font-bold font-[family-name:var(--font-display)]">Saving Challenges</h1>
 
       {/* Active challenges */}
       {activeChallenges.length > 0 && (
         <div>
-          <h2 className="text-[10px] font-bold text-muted uppercase tracking-widest mb-3">Active</h2>
+          <h2 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#DBEAFE] text-[#3B82F6] text-[11px] font-bold mb-3">Active</h2>
           <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
             {activeChallenges.map((ch) => {
               const progress = ch.targetAmount > 0 ? Math.min(100, (ch.savedAmount / ch.targetAmount) * 100) : 0;
@@ -85,7 +85,7 @@ export default function ChallengesPage() {
                 <Link
                   key={ch.id}
                   href={`/challenges/${ch.id}`}
-                  className="card card-glow p-5 flex items-center gap-4 block"
+                  className="card card-glow p-6 flex items-center gap-5 block"
                 >
                   <div className="relative w-20 h-20 shrink-0">
                     <svg className="circular-progress w-20 h-20" viewBox="0 0 96 96">
@@ -101,13 +101,13 @@ export default function ChallengesPage() {
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-foreground">{ch.title}</p>
-                    <p className="text-[10px] text-muted mt-1 line-clamp-2">{ch.description}</p>
+                    <p className="text-base font-bold text-foreground">{ch.title}</p>
+                    <p className="text-xs text-muted mt-1 line-clamp-2">{ch.description}</p>
                     <div className="flex items-center gap-3 mt-2">
                       <span className="text-xs font-bold text-savings font-[family-name:var(--font-mono)]">
                         {formatCurrency(ch.savedAmount)}
                       </span>
-                      <span className="text-[10px] text-muted">/ {formatCurrency(ch.targetAmount)}</span>
+                      <span className="text-xs text-muted">/ {formatCurrency(ch.targetAmount)}</span>
                     </div>
                   </div>
                 </Link>
@@ -120,18 +120,18 @@ export default function ChallengesPage() {
       {/* Completed */}
       {completedChallenges.length > 0 && (
         <div>
-          <h2 className="text-[10px] font-bold text-success uppercase tracking-widest mb-3">
+          <h2 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#D1FAE5] text-[#059669] text-[11px] font-bold mb-3">
             Completed ({completedChallenges.length})
           </h2>
           <div className="space-y-2">
             {completedChallenges.map((ch) => (
-              <div key={ch.id} className="card p-4 flex items-center gap-3 opacity-75">
-                <div className="w-10 h-10 rounded-xl bg-success/15 flex items-center justify-center">
+              <div key={ch.id} className="card p-5 flex items-center gap-4 opacity-75">
+                <div className="w-12 h-12 rounded-2xl bg-[#D1FAE5] flex items-center justify-center">
                   <HiOutlineTrophy className="w-5 h-5 text-success" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-foreground">{ch.title}</p>
-                  <p className="text-[10px] text-muted">Saved {formatCurrency(ch.savedAmount)}</p>
+                  <p className="text-sm font-bold text-foreground">{ch.title}</p>
+                  <p className="text-xs text-muted">Saved {formatCurrency(ch.savedAmount)}</p>
                 </div>
               </div>
             ))}
@@ -142,25 +142,25 @@ export default function ChallengesPage() {
       {/* Suggestions */}
       <div>
         <div className="flex items-center gap-2 mb-3">
-          <HiOutlineSparkles className="w-4 h-4 text-warning" />
-          <h2 className="text-[10px] font-bold text-muted uppercase tracking-widest">Suggested For You</h2>
+          <HiOutlineSparkles className="w-4 h-4 text-[#B45309]" />
+          <h2 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FEF3C7] text-[#B45309] text-[11px] font-bold">Suggested For You</h2>
         </div>
         <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
           {suggestions.map((s, i) => (
-            <div key={i} className="card p-5">
-              <p className="text-sm font-bold text-foreground mb-1">{s.title}</p>
+            <div key={i} className="card p-6">
+              <p className="text-base font-bold text-foreground mb-1">{s.title}</p>
               <p className="text-xs text-muted leading-relaxed mb-3">{s.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="text-xs font-bold text-savings font-[family-name:var(--font-mono)]">
                     {formatCurrency(s.targetAmount)}
                   </span>
-                  <span className="text-[10px] text-muted">{s.durationDays} days &middot; {s.frequency}</span>
+                  <span className="text-xs text-muted">{s.durationDays} days &middot; {s.frequency}</span>
                 </div>
                 <button
                   onClick={() => handleStartChallenge(s)}
                   disabled={addChallenge.isPending}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-savings/15 text-savings text-xs font-bold hover:bg-savings/20 transition-colors"
+                  className="flex items-center gap-1 px-4 py-2 rounded-full bg-[#D1FAE5] text-[#059669] text-xs font-bold shadow-sm hover:shadow-md transition-all"
                 >
                   <HiOutlinePlus className="w-3.5 h-3.5" />
                   Start

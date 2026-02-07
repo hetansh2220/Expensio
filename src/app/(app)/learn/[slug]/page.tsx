@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import { articles } from "@/lib/constants/learningContent";
 import { HiOutlineArrowLeft, HiOutlineClock } from "react-icons/hi2";
 
@@ -57,21 +58,34 @@ export default function ArticlePage() {
   }
 
   return (
-    <div className="py-4 animate-fade-in lg:max-w-3xl">
+    <div className="py-6 animate-fade-in lg:max-w-3xl">
       <button
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-muted text-sm font-medium mb-6 hover:text-foreground transition-colors"
+        className="w-11 h-11 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex items-center justify-center hover:shadow-md transition-all mb-6"
       >
-        <HiOutlineArrowLeft className="w-4 h-4" />
-        Back to articles
+        <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
       </button>
 
-      <div className="mb-6">
-        <span className="text-4xl block mb-3">{article.icon}</span>
-        <h1 className="text-2xl lg:text-3xl font-bold font-[family-name:var(--font-display)] text-foreground">{article.title}</h1>
-        <div className="flex items-center gap-2 mt-2">
-          <HiOutlineClock className="w-3.5 h-3.5 text-muted" />
-          <span className="text-xs text-muted">{article.readTimeMinutes} min read</span>
+      {/* Hero image */}
+      <div className="relative h-52 lg:h-72 rounded-3xl overflow-hidden mb-6">
+        <Image
+          src={article.image}
+          alt={article.title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 768px"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-5">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-2xl">{article.icon}</span>
+            <div className="flex items-center gap-1.5">
+              <HiOutlineClock className="w-3.5 h-3.5 text-white/70" />
+              <span className="text-xs text-white/70">{article.readTimeMinutes} min read</span>
+            </div>
+          </div>
+          <h1 className="text-2xl lg:text-3xl font-bold font-[family-name:var(--font-display)] text-white">{article.title}</h1>
         </div>
       </div>
 

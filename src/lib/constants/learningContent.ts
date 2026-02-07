@@ -3,6 +3,7 @@ export interface LearningArticle {
   title: string;
   summary: string;
   icon: string;
+  image: string;
   readTimeMinutes: number;
   content: string;
 }
@@ -13,6 +14,7 @@ export const articles: LearningArticle[] = [
     title: "Budgeting Basics",
     summary: "Learn how to create and stick to a monthly budget that works for you.",
     icon: "📊",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop&auto=format",
     readTimeMinutes: 3,
     content: `## What is a Budget?
 
@@ -46,6 +48,7 @@ A budget is a plan for how you will spend your money each month. It helps you en
     title: "The 50/30/20 Rule",
     summary: "A simple framework to divide your income into needs, wants, and savings.",
     icon: "📐",
+    image: "https://images.unsplash.com/photo-1534951009808-766178b47a4f?w=800&h=400&fit=crop&auto=format",
     readTimeMinutes: 3,
     content: `## The 50/30/20 Rule Explained
 
@@ -92,6 +95,7 @@ The 50/30/20 split is a guideline, not a rigid rule. If you live in an expensive
     title: "Building an Emergency Fund",
     summary: "Why you need an emergency fund and how to build one step by step.",
     icon: "🛡️",
+    image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&h=400&fit=crop&auto=format",
     readTimeMinutes: 4,
     content: `## What is an Emergency Fund?
 
@@ -137,6 +141,7 @@ Use your emergency fund ONLY for true emergencies:
     title: "Managing Debt & EMIs",
     summary: "Strategies to handle loans, EMIs, and become debt-free faster.",
     icon: "💳",
+    image: "https://images.unsplash.com/photo-1589758438368-0ad531db3366?w=800&h=400&fit=crop&auto=format",
     readTimeMinutes: 4,
     content: `## Understanding Debt
 
@@ -178,6 +183,7 @@ Pay minimum on all debts, then put extra money toward the highest interest rate 
     title: "Building Saving Habits",
     summary: "Practical techniques to make saving money automatic and enjoyable.",
     icon: "🏦",
+    image: "https://images.unsplash.com/photo-1561837581-abd854e0ee22?w=800&h=400&fit=crop&auto=format",
     readTimeMinutes: 3,
     content: `## Why Saving is Hard
 
@@ -223,6 +229,7 @@ Before paying any bills or buying anything, transfer your savings amount to a se
     title: "Needs vs Wants",
     summary: "Learn to distinguish between essential and discretionary spending.",
     icon: "⚖️",
+    image: "https://images.unsplash.com/photo-1560073210-1eb8ea89d4cc?w=800&h=400&fit=crop&auto=format",
     readTimeMinutes: 3,
     content: `## The Difference
 

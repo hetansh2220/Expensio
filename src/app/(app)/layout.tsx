@@ -41,7 +41,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Main content area */}
       <div className="lg:ml-64">
         <TopBar />
-        <main className="px-4 pb-24 lg:pb-8 max-w-lg mx-auto lg:max-w-5xl lg:px-8">
+        <main className="px-5 pb-24 lg:pb-10 max-w-lg mx-auto lg:max-w-5xl lg:px-8">
           {children}
         </main>
       </div>

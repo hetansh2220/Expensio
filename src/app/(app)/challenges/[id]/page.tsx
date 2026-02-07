@@ -89,17 +89,16 @@ export default function ChallengeDetailPage() {
   const offset = circ - (progress / 100) * circ;
 
   return (
-    <div className="py-4 animate-fade-in lg:max-w-2xl">
+    <div className="py-6 animate-fade-in lg:max-w-2xl">
       <button
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-muted text-sm font-medium mb-6 hover:text-foreground transition-colors"
+        className="w-11 h-11 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex items-center justify-center hover:shadow-md transition-all mb-6"
       >
-        <HiOutlineArrowLeft className="w-4 h-4" />
-        Back
+        <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
       </button>
 
       {/* Progress ring */}
-      <div className="card card-glow p-8 flex flex-col items-center mb-4">
+      <div className="card card-glow p-8 lg:p-10 flex flex-col items-center mb-4">
         <div className="relative w-36 h-36 mb-4">
           <svg className="circular-progress w-36 h-36" viewBox="0 0 128 128">
             <circle cx="64" cy="64" r={r} fill="none" stroke="var(--color-border-subtle)" strokeWidth="6" />
@@ -122,25 +121,25 @@ export default function ChallengeDetailPage() {
         <div className="flex items-center gap-6 mt-4">
           <div className="text-center">
             <p className="text-sm font-bold text-savings font-[family-name:var(--font-mono)]">{formatCurrency(challenge.savedAmount)}</p>
-            <p className="text-[10px] text-muted">Saved</p>
+            <p className="text-xs text-muted">Saved</p>
           </div>
           <div className="w-px h-8 bg-border-subtle" />
           <div className="text-center">
             <p className="text-sm font-bold text-foreground font-[family-name:var(--font-mono)]">{formatCurrency(challenge.targetAmount)}</p>
-            <p className="text-[10px] text-muted">Target</p>
+            <p className="text-xs text-muted">Target</p>
           </div>
           <div className="w-px h-8 bg-border-subtle" />
           <div className="text-center">
             <p className="text-sm font-bold text-foreground">{challenge.checkIns.length}</p>
-            <p className="text-[10px] text-muted">Check-ins</p>
+            <p className="text-xs text-muted">Check-ins</p>
           </div>
         </div>
       </div>
 
       {/* Check-in section */}
       {challenge.status === "active" && (
-        <div className="card p-5 mb-4">
-          <h3 className="text-xs font-bold text-muted uppercase tracking-widest mb-3">Daily Check-in</h3>
+        <div className="card p-6 mb-4">
+          <h3 className="text-xs font-bold text-muted uppercase tracking-wider mb-3">Daily Check-in</h3>
           <div className="flex gap-2">
             <div className="relative flex-1">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-muted/50">₹</span>
@@ -149,13 +148,13 @@ export default function ChallengeDetailPage() {
                 value={checkInAmount}
                 onChange={(e) => setCheckInAmount(e.target.value)}
                 placeholder={String(challenge.perPeriodTarget)}
-                className="w-full h-12 pl-8 pr-3 rounded-xl bg-surface border border-border-subtle text-sm font-bold text-foreground font-[family-name:var(--font-mono)] placeholder:text-muted/30 focus:outline-none focus:border-savings/50 transition-all"
+                className="w-full h-12 pl-8 pr-3 rounded-2xl bg-surface border border-border-subtle text-sm font-bold text-foreground font-[family-name:var(--font-mono)] placeholder:text-muted/30 focus:outline-none focus:border-savings/50 transition-all"
               />
             </div>
             <button
               onClick={handleCheckIn}
               disabled={checkInMutation.isPending}
-              className="px-6 h-12 rounded-xl bg-gradient-to-r from-savings to-savings-light text-white font-semibold text-sm hover:shadow-lg hover:shadow-savings/25 transition-all disabled:opacity-50"
+              className="px-6 h-12 rounded-2xl bg-gradient-to-r from-savings to-savings-light text-white font-semibold text-sm shadow-lg shadow-savings/25 hover:shadow-xl transition-all disabled:opacity-50"
             >
               {checkInMutation.isPending ? "..." : "Save"}
             </button>
@@ -165,14 +164,14 @@ export default function ChallengeDetailPage() {
 
       {/* Check-in history */}
       {challenge.checkIns.length > 0 && (
-        <div className="card p-5 mb-4">
-          <h3 className="text-xs font-bold text-muted uppercase tracking-widest mb-3">History</h3>
+        <div className="card p-6 mb-4">
+          <h3 className="text-xs font-bold text-muted uppercase tracking-wider mb-3">History</h3>
           <div className="grid grid-cols-7 lg:grid-cols-14 gap-1">
             {challenge.checkIns.map((ci, i) => (
               <div
                 key={i}
                 className={clsx(
-                  "aspect-square rounded-lg flex items-center justify-center text-[9px] font-bold",
+                  "aspect-square rounded-xl flex items-center justify-center text-[10px] font-bold",
                   ci.completed ? "bg-savings/25 text-savings" : "bg-surface-overlay text-muted"
                 )}
                 title={`${ci.date}: ${formatCurrency(ci.amount)}`}
