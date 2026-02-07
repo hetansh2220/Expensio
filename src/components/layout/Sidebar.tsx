@@ -44,20 +44,18 @@ export default function Sidebar() {
 
   return (
     <aside className="hidden lg:flex flex-col w-72 h-screen fixed left-0 top-0 bg-surface border-r border-border-subtle z-40 transition-colors duration-300">
-      {/* Brand */}
       <div className="px-7 py-6 border-b border-border-subtle">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-md shadow-primary/20">
-            <span className="text-lg font-extrabold text-white">F</span>
+            <span className="text-lg font-extrabold text-white">E</span>
           </div>
           <div>
-            <h1 className="text-base font-bold text-foreground">FinWell</h1>
+            <h1 className="text-base font-bold text-foreground">Expensio</h1>
             <p className="text-[11px] text-muted font-medium">Financial Wellbeing</p>
           </div>
         </div>
       </div>
 
-      {/* Nav items */}
       <nav className="flex-1 px-4 py-5 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const active = isActive(item.href);
@@ -88,7 +86,6 @@ export default function Sidebar() {
         </Link>
       </nav>
 
-      {/* Bottom section */}
       <div className="px-4 py-4 border-t border-border-subtle space-y-2">
         <button
           onClick={toggleTheme}

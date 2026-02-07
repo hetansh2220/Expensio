@@ -30,27 +30,23 @@ export function calculateHealthScore(
     .filter((t) => t.type === "savings")
     .reduce((sum, t) => sum + t.amount, 0);
 
-  // Budget adherence (30%)
   let budgetAdherence = 100;
   if (budget && budget.monthlyLimit > 0) {
     budgetAdherence = Math.max(0, Math.min(100, ((budget.monthlyLimit - totalExpenses) / budget.monthlyLimit) * 100));
   }
 
-  // Savings rate (30%) - target 20% of income
   let savingsRate = 0;
   if (monthlyIncome > 0) {
     const rate = (totalSavings / monthlyIncome) * 100;
     savingsRate = Math.min(100, (rate / 20) * 100);
   }
 
-  // Bills punctuality (20%)
   let billsPunctuality = 100;
   if (bills.length > 0) {
     const paidOnTime = bills.filter((b) => b.isPaid).length;
     billsPunctuality = (paidOnTime / bills.length) * 100;
   }
 
-  // Challenge participation (20%)
   let challengeParticipation = 0;
   const activeChallenges = challenges.filter((c) => c.status === "active" || c.status === "completed");
   if (activeChallenges.length > 0) {

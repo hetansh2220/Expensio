@@ -25,7 +25,6 @@ export default function BillsPage() {
   const addTransaction = useAddTransaction();
   const { showToast } = useToast();
 
-  // Auto-reset recurring bills at the start of each month
   useEffect(() => {
     if (bills.length === 0) return;
     const now = new Date();
@@ -63,7 +62,6 @@ export default function BillsPage() {
         });
       }
     });
-    // Only run when bills data first loads
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bills.length]);
 
@@ -77,7 +75,6 @@ export default function BillsPage() {
     return { overdue, dueSoon, upcoming, paid };
   }, [bills]);
 
-  // Monthly summary
   const totalMonthly = useMemo(() => {
     return bills.reduce((sum, b) => sum + b.amount, 0);
   }, [bills]);
@@ -91,7 +88,6 @@ export default function BillsPage() {
     if (!bill) return;
 
     try {
-      // Create an expense transaction for this bill payment
       await addTransaction.mutateAsync({
         type: "expense",
         amount: bill.amount,
@@ -100,7 +96,6 @@ export default function BillsPage() {
         date: Timestamp.now(),
       });
 
-      // Mark the bill as paid
       await updateBill.mutateAsync({
         billId,
         data: {
@@ -165,7 +160,6 @@ export default function BillsPage() {
         </Link>
       </div>
 
-      {/* Monthly summary bar */}
       {bills.length > 0 && (
         <div className="card p-5 mb-6 flex items-center justify-between">
           <div>

@@ -23,7 +23,6 @@ export function generateAlerts(
     .filter((t) => t.type === "expense")
     .reduce((sum, t) => sum + t.amount, 0);
 
-  // Budget alerts
   if (budget && budget.monthlyLimit > 0) {
     const usage = (totalExpenses / budget.monthlyLimit) * 100;
     if (usage >= 100) {
@@ -43,7 +42,6 @@ export function generateAlerts(
     }
   }
 
-  // Bill alerts
   bills.forEach((bill) => {
     if (isOverdue(bill.dueDate, bill.isPaid)) {
       alerts.push({
@@ -62,7 +60,6 @@ export function generateAlerts(
     }
   });
 
-  // Savings goal alert
   if (budget && budget.savingGoal > 0) {
     const totalSavings = transactions
       .filter((t) => t.type === "savings")
@@ -81,7 +78,6 @@ export function generateAlerts(
     }
   }
 
-  // Challenge streak
   const activeChallenges = challenges.filter((c) => c.status === "active");
   activeChallenges.forEach((challenge) => {
     if (challenge.checkIns.length >= 5) {
@@ -97,7 +93,6 @@ export function generateAlerts(
     }
   });
 
-  // No budget set
   if (!budget) {
     alerts.push({
       id: "no-budget",

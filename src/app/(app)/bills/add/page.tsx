@@ -119,7 +119,6 @@ export default function AddBillPage() {
           </div>
         </div>
 
-        {/* EMI Toggle */}
         <button
           type="button"
           onClick={() => setIsEMI(!isEMI)}

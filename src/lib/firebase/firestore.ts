@@ -19,8 +19,6 @@ import type { Budget } from "@/types/budget";
 import type { Bill } from "@/types/bill";
 import type { Challenge, CheckIn } from "@/types/challenge";
 
-// ─── User Profile ───────────────────────────────────────────────
-
 export async function getUserProfile(uid: string): Promise<UserProfile | null> {
   const snap = await getDoc(doc(db, "users", uid));
   if (!snap.exists()) return null;
@@ -42,8 +40,6 @@ export async function updateUserProfile(uid: string, data: Partial<UserProfile>)
   });
 }
 
-// ─── Transactions ───────────────────────────────────────────────
-
 export async function getTransactions(uid: string, month: string): Promise<Transaction[]> {
   const [year, mo] = month.split("-").map(Number);
   const startOfMonth = new Date(year, mo - 1, 1);
@@ -60,7 +56,6 @@ export async function getTransactions(uid: string, month: string): Promise<Trans
 }
 
 export async function addTransaction(uid: string, data: Omit<Transaction, "id" | "createdAt">) {
-  // Strip undefined values — Firestore rejects them
   const cleanData: Record<string, any> = { createdAt: Timestamp.now() };
   for (const [key, value] of Object.entries(data)) {
     if (value !== undefined) cleanData[key] = value;
@@ -71,8 +66,6 @@ export async function addTransaction(uid: string, data: Omit<Transaction, "id" |
 export async function deleteTransaction(uid: string, transactionId: string) {
   await deleteDoc(doc(db, "users", uid, "transactions", transactionId));
 }
-
-// ─── Budget ─────────────────────────────────────────────────────
 
 export async function getBudget(uid: string, month: string): Promise<Budget | null> {
   const snap = await getDoc(doc(db, "users", uid, "budgets", month));
@@ -94,8 +87,6 @@ export async function updateBudget(uid: string, month: string, data: Partial<Bud
     updatedAt: Timestamp.now(),
   });
 }
-
-// ─── Bills ──────────────────────────────────────────────────────
 
 export async function getBills(uid: string): Promise<Bill[]> {
   const q = query(
@@ -125,8 +116,6 @@ export async function updateBill(uid: string, billId: string, data: Partial<Bill
 export async function deleteBill(uid: string, billId: string) {
   await deleteDoc(doc(db, "users", uid, "bills", billId));
 }
-
-// ─── Challenges ─────────────────────────────────────────────────
 
 export async function getChallenges(uid: string): Promise<Challenge[]> {
   const q = query(

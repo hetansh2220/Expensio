@@ -1,12 +1,5 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════════════════════════════
-   FINWELL — DESIGN SYSTEM
-   Inspired by Fundra's clean, modern aesthetic with Montserrat
-   typography, generous whitespace, and purposeful design.
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ─── Dark Theme (default) ────────────────────────────────────── */
 @theme {
   --color-background: #0A0E1A;
   --color-foreground: #F0F2F7;
@@ -49,7 +42,6 @@
   --animate-border-glow: border-glow 3s ease-in-out infinite;
 }
 
-/* ─── Light Theme Overrides ───────────────────────────────────── */
 :root[data-theme="light"] {
   --color-background: #F8FAFB;
   --color-foreground: #111827;
@@ -79,7 +71,6 @@
   --color-emi-light: #D946EF;
 }
 
-/* ─── Animations ──────────────────────────────────────────────── */
 @keyframes slide-up {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
@@ -136,7 +127,6 @@
   100% { background-position: 0% 50%; }
 }
 
-/* ─── Base ────────────────────────────────────────────────────── */
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -164,7 +154,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ─── Glass Surfaces ──────────────────────────────────────────── */
 :root[data-theme="dark"] .glass {
   background: rgba(17, 22, 39, 0.75);
   backdrop-filter: blur(24px) saturate(1.2);
@@ -197,7 +186,6 @@ body {
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* ─── Card Styles ─────────────────────────────────────────────── */
 .card {
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border-subtle);
@@ -247,7 +235,6 @@ body {
   opacity: 0.5;
 }
 
-/* ─── Skeleton Loading ────────────────────────────────────────── */
 :root[data-theme="dark"] .skeleton {
   background: linear-gradient(90deg, #171D30 0%, #1E2540 50%, #171D30 100%);
   background-size: 400% 100%;
@@ -262,7 +249,6 @@ body {
   border-radius: 12px;
 }
 
-/* ─── Scrollbar ───────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -289,7 +275,6 @@ body {
   background: #9CA3AF;
 }
 
-/* ─── Input Styles ────────────────────────────────────────────── */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -310,7 +295,6 @@ input[type="number"] {
   box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.08);
 }
 
-/* ─── Circular Progress ──────────────────────────────────────── */
 .circular-progress {
   transform: rotate(-90deg);
 }
@@ -319,12 +303,10 @@ input[type="number"] {
   transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ─── Safe Area ───────────────────────────────────────────────── */
 .pb-safe {
   padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
 }
 
-/* ─── Staggered Animations ────────────────────────────────────── */
 .stagger > * {
   opacity: 0;
   animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -339,7 +321,6 @@ input[type="number"] {
 .stagger > *:nth-child(7) { animation-delay: 0.35s; }
 .stagger > *:nth-child(8) { animation-delay: 0.4s; }
 
-/* ─── Gradient Text ───────────────────────────────────────────── */
 .gradient-text {
   background: linear-gradient(135deg, #10B981, #06B6D4);
   -webkit-background-clip: text;
@@ -354,7 +335,6 @@ input[type="number"] {
   background-clip: text;
 }
 
-/* ─── Prose Content ───────────────────────────────────────────── */
 .article-content h2 {
   font-family: var(--font-display);
   font-size: 1.5rem;
@@ -395,7 +375,6 @@ input[type="number"] {
   font-weight: 600;
 }
 
-/* ─── Selection ───────────────────────────────────────────────── */
 :root[data-theme="dark"] ::selection {
   background: rgba(16, 185, 129, 0.25);
   color: #F0F2F7;
@@ -406,7 +385,6 @@ input[type="number"] {
   color: #111827;
 }
 
-/* ─── Theme Toggle ────────────────────────────────────────────── */
 .theme-toggle {
   position: relative;
   width: 52px;

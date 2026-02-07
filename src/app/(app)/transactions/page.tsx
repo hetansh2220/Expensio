@@ -24,7 +24,6 @@ export default function TransactionsPage() {
   const { data: transactions = [], isLoading } = useTransactions(month);
   const deleteMutation = useDeleteTransaction();
 
-  // Monthly totals
   const totals = useMemo(() => {
     const income = transactions.filter((t) => t.type === "income").reduce((s, t) => s + t.amount, 0);
     const expenses = transactions.filter((t) => t.type === "expense").reduce((s, t) => s + t.amount, 0);
@@ -50,7 +49,6 @@ export default function TransactionsPage() {
 
   return (
     <div className="py-6 animate-fade-in">
-      {/* Month picker */}
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => setMonth(getPreviousMonth(month))}
@@ -70,7 +68,6 @@ export default function TransactionsPage() {
         </button>
       </div>
 
-      {/* Monthly summary */}
       {!isLoading && transactions.length > 0 && (
         <div className="card p-5 mb-6 grid grid-cols-3 gap-4 text-center">
           <div>
@@ -166,7 +163,6 @@ export default function TransactionsPage() {
         </div>
       )}
 
-      {/* FAB - mobile only */}
       <Link
         href={ROUTES.ADD_TRANSACTION}
         className="fixed bottom-24 right-6 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-primary/30 flex items-center justify-center z-30 hover:scale-105 active:scale-95 transition-transform lg:hidden"

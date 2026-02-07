@@ -42,20 +42,18 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col items-center">
-      {/* Branding */}
       <div className="mb-10 text-center">
         <div className="relative inline-flex items-center justify-center w-16 h-16 mb-4">
           <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary to-savings opacity-20 blur-lg" />
           <div className="absolute -inset-1 rounded-2xl bg-linear-to-br from-primary/20 to-savings/20 blur-xl animate-pulse-glow" />
           <div className="relative w-16 h-16 rounded-2xl bg-linear-to-br from-primary to-savings flex items-center justify-center shadow-lg shadow-primary/25">
-            <span className="text-2xl font-extrabold text-white font-[family-name:var(--font-display)]">F</span>
+            <span className="text-2xl font-extrabold text-white font-[family-name:var(--font-display)]">E</span>
           </div>
         </div>
         <h1 className="text-2xl font-bold font-[family-name:var(--font-display)] text-foreground">Welcome back</h1>
-        <p className="text-sm text-muted mt-1">Sign in to continue to FinWell</p>
+        <p className="text-sm text-muted mt-1">Sign in to continue to Expensio</p>
       </div>
 
-      {/* Google button */}
       <button
         onClick={handleGoogleLogin}
         disabled={loading}
@@ -70,14 +68,12 @@ export default function LoginPage() {
         Continue with Google
       </button>
 
-      {/* Divider */}
       <div className="flex items-center gap-3 w-full mb-6">
         <div className="flex-1 h-px bg-border-subtle" />
         <span className="text-xs text-muted font-medium">or sign in with email</span>
         <div className="flex-1 h-px bg-border-subtle" />
       </div>
 
-      {/* Form */}
       <form onSubmit={handleEmailLogin} className="w-full flex flex-col gap-3">
         <input
           type="email"

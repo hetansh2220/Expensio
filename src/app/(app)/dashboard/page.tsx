@@ -56,17 +56,14 @@ export default function DashboardPage() {
 
   const budgetUsage = budget && budget.monthlyLimit > 0 ? Math.min(100, (totals.expenses / budget.monthlyLimit) * 100) : 0;
 
-  // Health gauge SVG
   const gaugeRadius = 52;
   const gaugeCircumference = 2 * Math.PI * gaugeRadius;
   const gaugeOffset = gaugeCircumference - (health.score / 100) * gaugeCircumference;
 
   return (
     <div className="py-6 stagger">
-      {/* ─── Desktop: 3-column grid / Mobile: stacked ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
 
-      {/* ─── Current Balance ────────────────── */}
       <div className="card card-glow p-6 lg:p-7 lg:col-span-3 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
         <h3 className="text-[11px] font-semibold text-muted uppercase tracking-wider mb-1">Current Balance</h3>
@@ -79,7 +76,6 @@ export default function DashboardPage() {
         <p className="text-xs text-muted mt-1">Income − Expenses − Savings this month</p>
       </div>
 
-      {/* ─── Financial Overview ───────────── */}
       <Link href={ROUTES.TRANSACTIONS} className="card card-glow p-6 lg:col-span-3 block">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xs font-semibold text-muted uppercase tracking-wider">This Month</h3>
@@ -111,9 +107,7 @@ export default function DashboardPage() {
       </Link>
       </div>
 
-      {/* ─── Health Score + Budget + Bills row ─── */}
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
-        {/* Health Score */}
         <div className="card card-glow p-6 flex flex-col items-center justify-center">
           <div className="relative w-28 h-28">
             <svg className="circular-progress w-28 h-28" viewBox="0 0 120 120">
@@ -157,7 +151,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Budget Progress */}
         <Link href={ROUTES.BUDGET} className="card card-glow p-6 flex flex-col">
           <h3 className="text-[11px] font-semibold text-muted uppercase tracking-wider mb-3">Budget</h3>
           {budget ? (
@@ -188,7 +181,6 @@ export default function DashboardPage() {
           )}
         </Link>
 
-      {/* ─── Bills Summary ────────────────── */}
       <Link href={ROUTES.BILLS} className="card card-glow p-6 col-span-2 lg:col-span-1">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xs font-semibold text-muted uppercase tracking-wider">Bills & EMI</h3>
@@ -225,10 +217,8 @@ export default function DashboardPage() {
       </Link>
       </div>
 
-      {/* ─── Challenges + Alerts row ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
-      {/* ─── Challenge Progress ───────────── */}
       {activeChallenges.length > 0 && (
         <Link href={ROUTES.CHALLENGES} className="card card-glow p-6">
           <div className="flex items-center justify-between mb-3">
@@ -265,7 +255,6 @@ export default function DashboardPage() {
         </Link>
       )}
 
-      {/* ─── Smart Alerts ─────────────────── */}
       {alerts.length > 0 && (
         <div className="card p-6">
           <h3 className="text-xs font-semibold text-muted uppercase tracking-wider mb-3">Insights</h3>

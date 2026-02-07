@@ -6,7 +6,6 @@ import { articles } from "@/lib/constants/learningContent";
 import { HiOutlineArrowLeft, HiOutlineClock } from "react-icons/hi2";
 
 function renderMarkdown(content: string) {
-  // Simple markdown to HTML for headings, bold, lists, paragraphs
   const lines = content.split("\n");
   const result: string[] = [];
   let inList = false;
@@ -66,7 +65,6 @@ export default function ArticlePage() {
         <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
       </button>
 
-      {/* Hero image */}
       <div className="relative h-52 lg:h-72 rounded-3xl overflow-hidden mb-6">
         <Image
           src={article.image}

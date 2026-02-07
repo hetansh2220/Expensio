@@ -42,7 +42,7 @@ export default function OnboardingPage() {
         onboardingComplete: true,
       });
       await refreshProfile();
-      showToast("Welcome to FinWell!", "success");
+      showToast("Welcome to Expensio!", "success");
       router.push(ROUTES.DASHBOARD);
     } catch (err: any) {
       showToast(err.message || "Something went wrong", "error");
@@ -61,12 +61,10 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-5 py-12 bg-background">
-      {/* Decorative */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-100 h-100 rounded-full bg-savings/5 blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-sm lg:max-w-md animate-fade-in">
-        {/* Progress dots */}
         <div className="flex items-center justify-center gap-2 mb-10">
           {(incomeType === "fixed" ? [0, 1, 2, 3] : [0, 1, 2]).map((i) => (
             <div
@@ -83,7 +81,6 @@ export default function OnboardingPage() {
           ))}
         </div>
 
-        {/* Step 0: Profession */}
         {step === 0 && (
           <div className="animate-scale-in">
             <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">What do you do?</h2>
@@ -120,7 +117,6 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Step 1: Income Type */}
         {step === 1 && (
           <div className="animate-scale-in">
             <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">Income type</h2>
@@ -187,7 +183,6 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Step 2: Monthly Income */}
         {step === 2 && (
           <div className="animate-scale-in">
             <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">Monthly income</h2>
@@ -251,7 +246,6 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* Step 3: Salary Date (fixed income only) */}
         {step === 3 && incomeType === "fixed" && (
           <div className="animate-scale-in">
             <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">Salary date</h2>

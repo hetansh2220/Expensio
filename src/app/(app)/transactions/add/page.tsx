@@ -55,7 +55,6 @@ export default function AddTransactionPage() {
 
   return (
     <div className="py-6 animate-fade-in">
-      {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <button
           onClick={() => router.back()}
@@ -67,7 +66,6 @@ export default function AddTransactionPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 lg:max-w-xl">
-        {/* Type selector */}
         <div className="grid grid-cols-3 gap-2">
           {types.map((t) => (
             <button
@@ -86,7 +84,6 @@ export default function AddTransactionPage() {
           ))}
         </div>
 
-        {/* Amount */}
         <div>
           <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Amount</label>
           <div className="relative">
@@ -102,7 +99,6 @@ export default function AddTransactionPage() {
           </div>
         </div>
 
-        {/* Category (expense only) */}
         {type === "expense" && (
           <div>
             <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Category</label>
@@ -128,7 +124,6 @@ export default function AddTransactionPage() {
           </div>
         )}
 
-        {/* Description */}
         <div>
           <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Description</label>
           <input
@@ -140,7 +135,6 @@ export default function AddTransactionPage() {
           />
         </div>
 
-        {/* Date */}
         <div>
           <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Date</label>
           <input
@@ -151,7 +145,6 @@ export default function AddTransactionPage() {
           />
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={addMutation.isPending || !amount}

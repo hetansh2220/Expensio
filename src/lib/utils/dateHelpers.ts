@@ -37,7 +37,6 @@ export function getDaysUntilDue(dueDay: number): number {
   const today = new Date();
   const dueDate = new Date(today.getFullYear(), today.getMonth(), dueDay);
   if (isBefore(dueDate, today)) {
-    // next month
     dueDate.setMonth(dueDate.getMonth() + 1);
   }
   return Math.ceil((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));

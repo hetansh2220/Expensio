@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
     const model = getGeminiModel();
 
-    const systemPrompt = `You are FinWell AI, a friendly and encouraging financial wellbeing assistant for an Indian user.
+    const systemPrompt = `You are Expensio AI, a friendly and encouraging financial wellbeing assistant for an Indian user.
 You help them understand their finances and build better money habits.
 Keep responses concise (2-4 paragraphs max), encouraging, and actionable.
 Use INR (₹) for currency. Avoid complex financial jargon.
@@ -29,7 +29,7 @@ User's current financial summary:
     const chat = model.startChat({
       history: [
         { role: "user", parts: [{ text: systemPrompt }] },
-        { role: "model", parts: [{ text: "I understand. I'm FinWell AI, ready to help with personalized, friendly financial guidance based on your current financial situation." }] },
+        { role: "model", parts: [{ text: "I understand. I'm Expensio AI, ready to help with personalized, friendly financial guidance based on your current financial situation." }] },
       ],
     });
 

@@ -6,7 +6,7 @@ import { ToastProvider } from "@/providers/ToastProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "FinWell — Financial Wellbeing",
+  title: "Expensio — Financial Wellbeing",
   description: "Track spending, build saving habits, and take control of your financial health.",
 };
 
@@ -36,7 +36,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('finwell-theme');
+                  var theme = localStorage.getItem('expensio-theme');
                   if (theme) {
                     document.documentElement.setAttribute('data-theme', theme);
                   } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {

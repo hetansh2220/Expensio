@@ -157,7 +157,6 @@ export default function BudgetPage() {
         </button>
       </div>
 
-      {/* Donut chart + Saving goal: side-by-side on desktop */}
       <div className="lg:grid lg:grid-cols-2 lg:gap-4 space-y-4 lg:space-y-0">
       <div className="card card-glow p-6 lg:p-7">
         <div className="flex items-center gap-4">
@@ -216,7 +215,6 @@ export default function BudgetPage() {
         </div>
       </div>
 
-      {/* Saving goal */}
       {budget.savingGoal > 0 && (
         <div className="card card-glow p-6">
           <div className="flex items-center justify-between mb-3">

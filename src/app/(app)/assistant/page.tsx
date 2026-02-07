@@ -133,20 +133,18 @@ export default function AssistantPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-10rem)] lg:h-[calc(100vh-6rem)] -mx-4 lg:-mx-8 animate-fade-in">
-      {/* Header */}
       <div className="px-5 py-4 border-b border-border/60">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-pink-500/15 flex items-center justify-center">
             <HiOutlineSparkles className="w-5 h-5 text-pink-500" />
           </div>
           <div>
-            <p className="text-base font-bold font-[family-name:var(--font-display)]">FinWell AI</p>
+            <p className="text-base font-bold font-[family-name:var(--font-display)]">Expensio AI</p>
             <p className="text-xs text-muted">Your financial assistant</p>
           </div>
         </div>
       </div>
 
-      {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full">
@@ -204,7 +202,6 @@ export default function AssistantPage() {
         )}
       </div>
 
-      {/* Input */}
       <div className="px-5 py-4 border-t border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="flex gap-2">
           <input

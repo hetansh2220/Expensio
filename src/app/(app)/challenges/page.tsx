@@ -30,7 +30,6 @@ export default function ChallengesPage() {
       profile.profession,
       profile.incomeType
     );
-    // Filter out suggestions that are already active or completed
     const existingTitles = new Set(challenges.map((c) => c.title));
     return all.filter((s) => !existingTitles.has(s.title));
   }, [profile, totalExpenses, challenges]);
@@ -71,7 +70,6 @@ export default function ChallengesPage() {
     <div className="py-6 animate-fade-in space-y-8">
       <h1 className="text-lg lg:text-xl font-bold font-[family-name:var(--font-display)]">Saving Challenges</h1>
 
-      {/* Active challenges */}
       {activeChallenges.length > 0 && (
         <div>
           <h2 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-needs/15 text-needs text-[11px] font-bold mb-3">Active</h2>
@@ -117,7 +115,6 @@ export default function ChallengesPage() {
         </div>
       )}
 
-      {/* Completed */}
       {completedChallenges.length > 0 && (
         <div>
           <h2 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/15 text-primary text-[11px] font-bold mb-3">
@@ -139,7 +136,6 @@ export default function ChallengesPage() {
         </div>
       )}
 
-      {/* Suggestions */}
       <div>
         <div className="flex items-center gap-2 mb-3">
           <HiOutlineSparkles className="w-4 h-4 text-accent" />

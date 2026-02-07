@@ -82,7 +82,6 @@ export default function SettingsPage() {
     <div className="py-6 animate-fade-in lg:max-w-2xl">
       <h1 className="text-xl font-bold font-[family-name:var(--font-display)] mb-6">Settings</h1>
 
-      {/* Profile card */}
       <div className="card card-glow p-7 lg:p-8 flex flex-col items-center mb-6 lg:flex-row lg:gap-6 lg:items-center">
         <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-savings/20 border-2 border-border shadow-md flex items-center justify-center mb-3">
           <span className="text-2xl font-bold text-primary font-[family-name:var(--font-display)]">{initial}</span>
@@ -93,7 +92,6 @@ export default function SettingsPage() {
         <p className="text-xs text-muted">{user?.email}</p>
       </div>
 
-      {/* Info rows */}
       <div className="card divide-y divide-border-subtle">
         <div className="flex items-center gap-4 p-5">
           <div className="w-12 h-12 rounded-2xl bg-needs/15 flex items-center justify-center">
@@ -114,7 +112,6 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Monthly Income — editable */}
         <div className="flex items-center gap-4 p-5">
           <div className="w-12 h-12 rounded-2xl bg-primary/15 flex items-center justify-center">
             <HiOutlineCurrencyRupee className="w-5 h-5 text-primary" />
@@ -134,7 +131,6 @@ export default function SettingsPage() {
           </button>
         </div>
 
-        {/* Salary Date (if fixed income) */}
         {profile?.incomeType === "fixed" && (
           <div className="flex items-center gap-4 p-5">
             <div className="w-12 h-12 rounded-2xl bg-needs/15 flex items-center justify-center">
@@ -156,7 +152,6 @@ export default function SettingsPage() {
         )}
       </div>
 
-      {/* Edit Income Modal */}
       {editing && (
         <div className="fixed inset-0 z-50 flex items-end lg:items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in">
           <div className="w-full max-w-md bg-surface-raised border border-border rounded-t-3xl lg:rounded-3xl p-6 animate-slide-in">
@@ -167,7 +162,6 @@ export default function SettingsPage() {
               </button>
             </div>
 
-            {/* Income amount */}
             <label className="text-[11px] text-muted uppercase font-semibold tracking-wider mb-2 block">
               Monthly Income (₹)
             </label>
@@ -199,7 +193,6 @@ export default function SettingsPage() {
               ))}
             </div>
 
-            {/* Salary date (fixed income only) */}
             {profile?.incomeType === "fixed" && (
               <>
                 <label className="text-[11px] text-muted uppercase font-semibold tracking-wider mb-2 block">
@@ -236,7 +229,6 @@ export default function SettingsPage() {
         </div>
       )}
 
-      {/* Theme toggle */}
       <div className="card p-5 mt-6 flex items-center gap-4">
         <div className="w-12 h-12 rounded-2xl bg-accent/15 flex items-center justify-center">
           {theme === "dark" ? (
@@ -270,7 +262,6 @@ export default function SettingsPage() {
         </button>
       </div>
 
-      {/* Sign out */}
       <button
         onClick={handleSignOut}
         className="w-full mt-6 flex items-center justify-center gap-2 h-14 rounded-2xl border border-danger/25 text-danger text-base font-semibold hover:bg-danger/10 transition-colors"

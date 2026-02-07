@@ -24,8 +24,6 @@ import {
   HiOutlineMoon,
 } from "react-icons/hi2";
 
-/* ─── Static Data ─────────────────────────── */
-
 const stats = [
   {
     value: "78%",
@@ -117,7 +115,7 @@ const steps = [
 
 const testimonials = [
   {
-    name: "Priya Sharma",
+    name: "Dhrumil",
     role: "Software Engineer, Bangalore",
     quote:
       "I finally know where my money goes each month. The budget tracking with the 50/30/20 split is exactly what I needed as a salaried professional.",
@@ -142,8 +140,6 @@ const mockTransactions = [
   { name: "Netflix", amount: "-₹649", color: "#F59E0B", initial: "N" },
 ];
 
-/* ─── Component ───────────────────────────── */
-
 export default function LandingPage() {
   const { user, profile } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -154,7 +150,6 @@ export default function LandingPage() {
   const ctaText =
     user && profile?.onboardingComplete ? "Go to Dashboard" : "Get Started Free";
 
-  /* Scroll-reveal observer */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -172,7 +167,6 @@ export default function LandingPage() {
     return () => observer.disconnect();
   }, []);
 
-  /* Close mobile menu on anchor click */
   const handleNavClick = () => setMobileMenuOpen(false);
 
   const GAUGE_R = 24;
@@ -182,7 +176,6 @@ export default function LandingPage() {
 
   return (
     <>
-      {/* ─── Scoped Styles ────────────────── */}
       <style>{`
         .lp-reveal {
           opacity: 0;
@@ -213,27 +206,21 @@ export default function LandingPage() {
         .lp-delay-5 { transition-delay: 400ms; }
       `}</style>
 
-      {/* ─── Main Wrapper ─────────────────── */}
       <div className="relative min-h-screen bg-background transition-colors duration-300" style={{ zIndex: 1 }}>
 
-        {/* ═══════════════════════════════════ */}
-        {/* NAVBAR                              */}
-        {/* ═══════════════════════════════════ */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/60">
           <div className="max-w-6xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-md shadow-primary/20">
                 <span className="text-sm font-extrabold text-white font-[family-name:var(--font-display)]">
-                  F
+                  E
                 </span>
               </div>
               <span className="text-lg font-bold font-[family-name:var(--font-display)] text-foreground">
-                FinWell
+                Expensio
               </span>
             </Link>
 
-            {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8">
               <a
                 href="#features"
@@ -255,7 +242,6 @@ export default function LandingPage() {
               </a>
             </div>
 
-            {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
               <button
                 onClick={toggleTheme}
@@ -278,7 +264,6 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* Mobile hamburger */}
             <div className="md:hidden flex items-center gap-2">
               <button
                 onClick={toggleTheme}
@@ -301,7 +286,6 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Mobile menu */}
           {mobileMenuOpen && (
             <div className="md:hidden bg-background border-b border-border px-5 pb-5 pt-2 space-y-1">
               <a
@@ -345,15 +329,10 @@ export default function LandingPage() {
           )}
         </nav>
 
-        {/* ═══════════════════════════════════ */}
-        {/* HERO                                */}
-        {/* ═══════════════════════════════════ */}
         <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-28 overflow-hidden">
-          {/* Decorative blobs */}
           <div className="absolute top-16 right-[5%] w-80 h-80 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-[2%] w-64 h-64 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
 
-          {/* Floating geometric decorations */}
           <div
             className="absolute top-32 left-[12%] w-3 h-3 rounded-full bg-primary/25 hidden lg:block"
             style={{ animation: "lp-float 5s ease-in-out infinite" }}
@@ -372,7 +351,6 @@ export default function LandingPage() {
           />
 
           <div className="max-w-6xl mx-auto px-5 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:gap-16">
-            {/* Left: Text */}
             <div className="flex-1 lg:max-w-xl">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/15 text-primary text-xs font-semibold mb-6">
                 <HiOutlineSparkles className="w-4 h-4" />
@@ -432,18 +410,14 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right: Phone Mockup */}
             <div className="flex-1 mt-14 lg:mt-0 flex justify-center">
               <div className="relative w-full max-w-[300px]">
-                {/* Glow behind phone */}
                 <div className="absolute -inset-8 rounded-[3rem] bg-gradient-to-br from-primary/10 to-savings/5 blur-2xl pointer-events-none" />
 
-                {/* Phone frame */}
                 <div
                   className="relative bg-surface-raised rounded-[2rem] shadow-2xl shadow-black/30 border border-border p-5 overflow-hidden"
                   style={{ animation: "lp-float 6s ease-in-out infinite" }}
                 >
-                  {/* Status bar */}
                   <div className="flex items-center justify-between mb-4 px-0.5">
                     <span className="text-[10px] font-semibold text-muted font-[family-name:var(--font-mono)]">
                       9:41
@@ -455,7 +429,6 @@ export default function LandingPage() {
                     </div>
                   </div>
 
-                  {/* Greeting */}
                   <div className="mb-3">
                     <p className="text-[10px] text-muted">Good morning</p>
                     <p className="text-sm font-bold font-[family-name:var(--font-display)] text-foreground">
@@ -463,7 +436,6 @@ export default function LandingPage() {
                     </p>
                   </div>
 
-                  {/* Balance card */}
                   <div className="bg-gradient-to-br from-primary to-savings rounded-2xl p-4 mb-3">
                     <p className="text-[8px] text-white/70 uppercase tracking-wider font-semibold">
                       Current Balance
@@ -493,7 +465,6 @@ export default function LandingPage() {
                     </div>
                   </div>
 
-                  {/* Health gauge row */}
                   <div className="flex items-center gap-3 bg-surface-overlay rounded-2xl p-3 mb-3">
                     <svg
                       className="w-12 h-12 shrink-0"
@@ -535,7 +506,6 @@ export default function LandingPage() {
                     </div>
                   </div>
 
-                  {/* Budget bar */}
                   <div className="mb-3">
                     <div className="flex justify-between mb-1.5">
                       <span className="text-[9px] text-muted font-semibold">
@@ -553,7 +523,6 @@ export default function LandingPage() {
                     </div>
                   </div>
 
-                  {/* Transactions */}
                   <div className="space-y-1.5">
                     {mockTransactions.map((item) => (
                       <div
@@ -590,9 +559,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ═══════════════════════════════════ */}
-        {/* STATS / PROBLEM                     */}
-        {/* ═══════════════════════════════════ */}
         <section className="py-16 lg:py-24 bg-surface scroll-mt-20">
           <div className="max-w-6xl mx-auto px-5 lg:px-8">
             <div className="text-center mb-12 lp-reveal">
@@ -600,7 +566,7 @@ export default function LandingPage() {
                 The Financial Reality Check
               </h2>
               <p className="mt-3 text-muted text-lg max-w-2xl mx-auto">
-                Most Indians struggle with money management. FinWell is built to
+                Most Indians struggle with money management. Expensio is built to
                 change that.
               </p>
             </div>
@@ -628,9 +594,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ═══════════════════════════════════ */}
-        {/* FEATURES                            */}
-        {/* ═══════════════════════════════════ */}
         <section id="features" className="py-16 lg:py-24 scroll-mt-20">
           <div className="max-w-6xl mx-auto px-5 lg:px-8">
             <div className="text-center mb-12 lp-reveal">
@@ -681,9 +644,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ═══════════════════════════════════ */}
-        {/* HOW IT WORKS                        */}
-        {/* ═══════════════════════════════════ */}
         <section
           id="how-it-works"
           className="py-16 lg:py-24 bg-surface scroll-mt-20"
@@ -699,9 +659,7 @@ export default function LandingPage() {
             </div>
 
             <div className="relative flex flex-col lg:flex-row lg:items-start gap-10 lg:gap-0">
-              {/* Connecting line — desktop */}
               <div className="hidden lg:block absolute top-6 left-[calc(16.67%+24px)] right-[calc(16.67%+24px)] h-[2px] bg-primary/15" />
-              {/* Connecting line — mobile */}
               <div className="lg:hidden absolute top-6 bottom-6 left-[23px] w-[2px] bg-primary/15" />
 
               {steps.map((step, i) => (
@@ -711,7 +669,6 @@ export default function LandingPage() {
                     i === 1 ? "lp-delay-1" : i === 2 ? "lp-delay-2" : ""
                   }`}
                 >
-                  {/* Step number */}
                   <div className="absolute left-0 lg:relative lg:left-auto w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center text-lg font-bold font-[family-name:var(--font-display)] z-10 shadow-md shadow-primary/20">
                     {i + 1}
                   </div>
@@ -732,9 +689,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ═══════════════════════════════════ */}
-        {/* DASHBOARD PREVIEW                   */}
-        {/* ═══════════════════════════════════ */}
         <section id="preview" className="py-16 lg:py-24 scroll-mt-20">
           <div className="max-w-6xl mx-auto px-5 lg:px-8">
             <div className="text-center mb-12 lp-reveal">
@@ -750,9 +704,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* Browser chrome frame */}
             <div className="lp-reveal bg-surface-raised rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/30 border border-border overflow-hidden max-w-4xl mx-auto">
-              {/* Browser tab bar */}
               <div className="flex items-center gap-2 px-4 py-3 bg-surface-overlay border-b border-border">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-danger/50" />
@@ -761,14 +713,12 @@ export default function LandingPage() {
                 </div>
                 <div className="flex-1 mx-2 sm:mx-4">
                   <div className="bg-surface rounded-lg px-4 py-1.5 text-[10px] sm:text-xs text-muted font-[family-name:var(--font-mono)] border border-border max-w-xs mx-auto text-center truncate">
-                    finwell.app/dashboard
+                    expensio.app/dashboard
                   </div>
                 </div>
               </div>
 
-              {/* Dashboard content */}
               <div className="bg-surface p-4 sm:p-6 lg:p-8 space-y-3 sm:space-y-4">
-                {/* Balance card */}
                 <div className="bg-surface-raised rounded-2xl p-4 sm:p-5 border border-border">
                   <p className="text-[8px] sm:text-[9px] text-muted uppercase tracking-widest font-semibold">
                     Current Balance
@@ -781,7 +731,6 @@ export default function LandingPage() {
                   </p>
                 </div>
 
-                {/* 3-column stats */}
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   <div className="flex flex-col items-center p-3 sm:p-4 rounded-2xl bg-success/10 border border-success/20">
                     <p className="text-sm sm:text-lg font-bold text-success font-[family-name:var(--font-display)]">
@@ -809,9 +758,7 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                {/* Health + Budget row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-                  {/* Health gauge */}
                   <div className="bg-surface-raised rounded-2xl p-4 sm:p-5 border border-border flex flex-col items-center">
                     <svg
                       className="w-20 h-20 sm:w-24 sm:h-24"
@@ -846,7 +793,6 @@ export default function LandingPage() {
                     </p>
                   </div>
 
-                  {/* Budget progress */}
                   <div className="bg-surface-raised rounded-2xl p-4 sm:p-5 border border-border">
                     <p className="text-[8px] sm:text-[9px] text-muted uppercase tracking-widest font-semibold mb-3">
                       Budget
@@ -884,56 +830,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ═══════════════════════════════════ */}
-        {/* TESTIMONIALS                        */}
-        {/* ═══════════════════════════════════ */}
-        <section className="py-16 lg:py-24 bg-surface">
-          <div className="max-w-6xl mx-auto px-5 lg:px-8">
-            <div className="text-center mb-12 lp-reveal">
-              <h2 className="text-3xl lg:text-4xl font-bold font-[family-name:var(--font-display)] text-foreground">
-                Loved by People Like You
-              </h2>
-              <p className="mt-3 text-muted text-lg max-w-xl mx-auto">
-                Real stories from users who transformed their financial habits.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-              {testimonials.map((t, i) => (
-                <div
-                  key={i}
-                  className={`lp-reveal bg-surface-raised rounded-3xl p-7 border border-border relative hover:border-primary/30 transition-all duration-300 ${
-                    i === 1 ? "lp-delay-1" : i === 2 ? "lp-delay-2" : ""
-                  }`}
-                >
-                  <div className="text-5xl font-serif text-primary/10 absolute top-3 right-5 leading-none select-none">
-                    &ldquo;
-                  </div>
-                  <p className="text-sm text-muted leading-relaxed mb-6 relative z-10">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-savings/20 flex items-center justify-center">
-                      <span className="text-sm font-bold text-primary">
-                        {t.name.charAt(0)}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">
-                        {t.name}
-                      </p>
-                      <p className="text-xs text-muted">{t.role}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════ */}
-        {/* FINAL CTA                           */}
-        {/* ═══════════════════════════════════ */}
         <section className="py-20 lg:py-28 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-savings" />
           <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/5 blur-3xl pointer-events-none" />
@@ -972,83 +868,22 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ═══════════════════════════════════ */}
-        {/* FOOTER                              */}
-        {/* ═══════════════════════════════════ */}
-        <footer className="py-12 bg-background border-t border-border-subtle">
-          <div className="max-w-6xl mx-auto px-5 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
-              {/* Logo + description */}
-              <div className="max-w-xs">
-                <div className="flex items-center gap-2.5 mb-3">
-                  <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-                    <span className="text-sm font-extrabold text-white font-[family-name:var(--font-display)]">
-                      F
-                    </span>
-                  </div>
-                  <span className="text-lg font-bold font-[family-name:var(--font-display)] text-foreground">
-                    FinWell
-                  </span>
-                </div>
-                <p className="text-sm text-muted leading-relaxed">
-                  Your personal financial wellbeing companion. Track, budget,
-                  save, and grow.
-                </p>
+        <footer className="py-10 bg-background border-t border-border/60">
+          <div className="max-w-6xl mx-auto px-5 lg:px-8 flex flex-col items-center gap-3">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center shadow-sm shadow-primary/20">
+                <span className="text-xs font-extrabold text-white font-[family-name:var(--font-display)]">E</span>
               </div>
-
-              {/* Links */}
-              <div className="flex gap-12 sm:gap-16">
-                <div className="space-y-3">
-                  <p className="text-xs font-semibold text-foreground uppercase tracking-wider">
-                    Product
-                  </p>
-                  <a
-                    href="#features"
-                    className="block text-sm text-muted hover:text-primary transition-colors"
-                  >
-                    Features
-                  </a>
-                  <a
-                    href="#how-it-works"
-                    className="block text-sm text-muted hover:text-primary transition-colors"
-                  >
-                    How It Works
-                  </a>
-                  <a
-                    href="#preview"
-                    className="block text-sm text-muted hover:text-primary transition-colors"
-                  >
-                    Preview
-                  </a>
-                </div>
-                <div className="space-y-3">
-                  <p className="text-xs font-semibold text-foreground uppercase tracking-wider">
-                    Account
-                  </p>
-                  <Link
-                    href={ROUTES.LOGIN}
-                    className="block text-sm text-muted hover:text-primary transition-colors"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    href={ROUTES.SIGNUP}
-                    className="block text-sm text-muted hover:text-primary transition-colors"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10 pt-6 border-t border-border-subtle flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <p className="text-xs text-muted">
-                &copy; {new Date().getFullYear()} FinWell. All rights reserved.
-              </p>
-              <p className="text-xs text-muted">
-                Built with care for your financial wellbeing
-              </p>
-            </div>
+              <span className="text-base font-bold font-[family-name:var(--font-display)] text-foreground">
+                Expensio
+              </span>
+            </Link>
+            <p className="text-xs text-muted">
+              Built with care for your financial wellbeing
+            </p>
+            <p className="text-xs text-muted/60">
+              &copy; {new Date().getFullYear()} Expensio. All rights reserved.
+            </p>
           </div>
         </footer>
       </div>

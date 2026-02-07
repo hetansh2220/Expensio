@@ -19,7 +19,6 @@ export function generateChallengeSuggestions(
   const disposable = monthlyIncome - totalExpenses;
   const dailySaveBase = Math.max(50, Math.round((monthlyIncome * 0.01) / 10) * 10);
 
-  // 30-day daily savings challenge
   suggestions.push({
     title: "30-Day Savings Sprint",
     description: `Save ₹${dailySaveBase} every day for 30 days. Small steps lead to big savings!`,
@@ -29,7 +28,6 @@ export function generateChallengeSuggestions(
     durationDays: 30,
   });
 
-  // Weekly challenge
   const weeklySave = Math.max(200, Math.round((monthlyIncome * 0.05) / 100) * 100);
   suggestions.push({
     title: "Weekly Wealth Builder",
@@ -40,7 +38,6 @@ export function generateChallengeSuggestions(
     durationDays: 28,
   });
 
-  // No-spend challenge
   if (totalExpenses > monthlyIncome * 0.6) {
     suggestions.push({
       title: "Wants-Free Week",
@@ -52,7 +49,6 @@ export function generateChallengeSuggestions(
     });
   }
 
-  // Student-friendly micro-save
   if (profession === "student") {
     suggestions.push({
       title: "Micro Saver",
@@ -64,7 +60,6 @@ export function generateChallengeSuggestions(
     });
   }
 
-  // Variable income saver
   if (incomeType === "variable") {
     const savePct = Math.max(500, Math.round(disposable * 0.15 / 100) * 100);
     suggestions.push({
@@ -77,7 +72,6 @@ export function generateChallengeSuggestions(
     });
   }
 
-  // High-income challenge
   if (monthlyIncome >= 50000) {
     const bigSave = Math.round((monthlyIncome * 0.1) / 1000) * 1000;
     suggestions.push({

@@ -6,10 +6,6 @@ import { useTransactions, useAddTransaction } from "@/hooks/useTransactions";
 import { getCurrentMonth } from "@/lib/utils/dateHelpers";
 import { Timestamp } from "firebase/firestore";
 
-/**
- * Auto-adds a salary income transaction on the user's salary date each month.
- * Only runs for fixed-income users who have set a salaryDate.
- */
 export function useAutoSalary() {
   const { profile, user } = useAuth();
   const month = getCurrentMonth();
@@ -25,10 +21,8 @@ export function useAutoSalary() {
     const now = new Date();
     const today = now.getDate();
 
-    // Only add salary if today is on or after the salary date
     if (today < profile.salaryDate) return;
 
-    // Check if salary was already added this month
     const salaryExists = transactions.some(
       (t) =>
         t.type === "income" &&
@@ -38,7 +32,6 @@ export function useAutoSalary() {
 
     if (salaryExists) return;
 
-    // Add the salary transaction
     hasRun.current = true;
     addTransaction.mutate({
       type: "income",

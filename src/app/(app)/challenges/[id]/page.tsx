@@ -46,7 +46,6 @@ export default function ChallengeDetailPage() {
     const amount = Number(checkInAmount) || challenge.perPeriodTarget;
     const newSaved = challenge.savedAmount + amount;
     try {
-      // Create a savings transaction
       await addTransaction.mutateAsync({
         type: "savings",
         amount,
@@ -54,7 +53,6 @@ export default function ChallengeDetailPage() {
         date: Timestamp.now(),
       });
 
-      // Record the check-in
       await checkInMutation.mutateAsync({
         challengeId: challenge.id,
         checkIn: {
@@ -97,7 +95,6 @@ export default function ChallengeDetailPage() {
         <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
       </button>
 
-      {/* Progress ring */}
       <div className="card card-glow p-8 lg:p-10 flex flex-col items-center mb-4">
         <div className="relative w-36 h-36 mb-4">
           <svg className="circular-progress w-36 h-36" viewBox="0 0 128 128">
@@ -136,7 +133,6 @@ export default function ChallengeDetailPage() {
         </div>
       </div>
 
-      {/* Check-in section */}
       {challenge.status === "active" && (
         <div className="card p-6 mb-4">
           <h3 className="text-xs font-bold text-muted uppercase tracking-wider mb-3">Daily Check-in</h3>
@@ -162,7 +158,6 @@ export default function ChallengeDetailPage() {
         </div>
       )}
 
-      {/* Check-in history */}
       {challenge.checkIns.length > 0 && (
         <div className="card p-6 mb-4">
           <h3 className="text-xs font-bold text-muted uppercase tracking-wider mb-3">History</h3>
@@ -183,7 +178,6 @@ export default function ChallengeDetailPage() {
         </div>
       )}
 
-      {/* Abandon */}
       {challenge.status === "active" && (
         <button
           onClick={handleAbandon}

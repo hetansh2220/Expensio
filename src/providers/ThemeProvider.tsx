@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("finwell-theme") as Theme | null;
+    const stored = localStorage.getItem("expensio-theme") as Theme | null;
     if (stored) {
       setTheme(stored);
     } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
@@ -32,7 +32,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (!mounted) return;
     const root = document.documentElement;
     root.setAttribute("data-theme", theme);
-    localStorage.setItem("finwell-theme", theme);
+    localStorage.setItem("expensio-theme", theme);
   }, [theme, mounted]);
 
   const toggleTheme = () => {

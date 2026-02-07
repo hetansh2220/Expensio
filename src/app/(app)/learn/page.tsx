@@ -18,7 +18,6 @@ export default function LearnPage() {
             href={`/learn/${article.slug}`}
             className="card card-glow overflow-hidden block"
           >
-            {/* Image */}
             <div className="relative h-44 overflow-hidden">
               <Image
                 src={article.image}
@@ -28,13 +27,11 @@ export default function LearnPage() {
                 sizes="(max-width: 640px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              {/* Emoji badge */}
               <div className="absolute bottom-3 left-3 w-12 h-12 rounded-2xl bg-surface-raised/90 backdrop-blur-sm flex items-center justify-center text-lg shadow-sm">
                 {article.icon}
               </div>
             </div>
 
-            {/* Content */}
             <div className="p-6">
               <h3 className="text-base font-bold text-foreground">{article.title}</h3>
               <p className="text-sm text-muted mt-1 line-clamp-2 leading-relaxed">{article.summary}</p>
