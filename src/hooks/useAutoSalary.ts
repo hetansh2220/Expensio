@@ -9,12 +9,13 @@ import { Timestamp } from "firebase/firestore";
 export function useAutoSalary() {
   const { profile, user } = useAuth();
   const month = getCurrentMonth();
-  const { data: transactions = [] } = useTransactions(month);
+  const { data: transactions, isSuccess } = useTransactions(month);
   const addTransaction = useAddTransaction();
   const hasRun = useRef(false);
 
   useEffect(() => {
     if (hasRun.current) return;
+    if (!isSuccess || !transactions) return;
     if (!user || !profile) return;
     if (profile.incomeType !== "fixed" || !profile.salaryDate || !profile.monthlyIncome) return;
 
@@ -41,5 +42,5 @@ export function useAutoSalary() {
         new Date(now.getFullYear(), now.getMonth(), profile.salaryDate)
       ),
     });
-  }, [user, profile, transactions, addTransaction, month]);
+  }, [user, profile, transactions, isSuccess, addTransaction, month]);
 }
