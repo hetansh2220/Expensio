@@ -47,18 +47,19 @@ export default function AddBillPage() {
   };
 
   return (
-    <div className="py-6 animate-fade-in">
-      <div className="flex items-center gap-3 mb-8">
-        <button
-          onClick={() => router.back()}
-          className="w-11 h-11 rounded-2xl bg-surface-raised border border-border shadow-sm flex items-center justify-center hover:shadow-md transition-all"
-        >
-          <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
-        </button>
-        <h1 className="text-xl font-bold font-[family-name:var(--font-display)]">Add Bill / EMI</h1>
-      </div>
+    <div className="min-h-full w-full flex flex-col items-center justify-center py-6">
+      <div className="w-full max-w-lg">
+        <div className="flex items-center gap-3 mb-8">
+          <button
+            onClick={() => router.back()}
+            className="w-11 h-11 rounded-2xl bg-surface-raised border border-border shadow-sm flex items-center justify-center hover:shadow-md transition-all"
+          >
+            <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
+          </button>
+          <h1 className="text-xl font-bold font-[family-name:var(--font-display)]">Add Bill / EMI</h1>
+        </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5 lg:max-w-xl">
+        <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Bill Name</label>
           <input
@@ -168,6 +169,7 @@ export default function AddBillPage() {
           {addMutation.isPending ? "Adding..." : "Add Bill"}
         </button>
       </form>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore";
 
-export type Profession = "employee" | "freelancer" | "student" | "business_owner" | "other";
+export type Profession = "employee" | "individual";
 export type IncomeType = "fixed" | "variable";
 
 export interface UserProfile {

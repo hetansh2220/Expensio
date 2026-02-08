@@ -87,7 +87,7 @@ export default function ChallengeDetailPage() {
   const offset = circ - (progress / 100) * circ;
 
   return (
-    <div className="py-6 animate-fade-in lg:max-w-2xl">
+    <div className=" w-full justify-self-center py-6 animate-fade-in lg:max-w-2xl">
       <button
         onClick={() => router.back()}
         className="w-11 h-11 rounded-2xl bg-surface-raised border border-border shadow-sm flex items-center justify-center hover:shadow-md transition-all mb-6"

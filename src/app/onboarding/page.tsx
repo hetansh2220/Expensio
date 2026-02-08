@@ -86,13 +86,13 @@ export default function OnboardingPage() {
             <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">What do you do?</h2>
             <p className="text-sm text-muted text-center mb-8">This helps us personalize your experience</p>
 
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               {PROFESSIONS.map((p) => (
                 <button
                   key={p.value}
                   onClick={() => setProfession(p.value)}
                   className={clsx(
-                    "relative flex flex-col items-center gap-2 p-5 rounded-2xl border transition-all",
+                    "relative flex flex-col items-center gap-3 p-6 rounded-2xl border transition-all",
                     profession === p.value
                       ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                       : "border-border-subtle bg-surface-raised hover:border-border hover:bg-surface-overlay"
@@ -101,8 +101,8 @@ export default function OnboardingPage() {
                   {profession === p.value && (
                     <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/5 to-savings/5 pointer-events-none" />
                   )}
-                  <span className="text-3xl relative">{p.icon}</span>
-                  <span className="text-xs font-semibold text-foreground relative">{p.label}</span>
+                  <span className="text-4xl relative">{p.icon}</span>
+                  <span className="text-sm font-semibold text-foreground relative">{p.label}</span>
                 </button>
               ))}
             </div>

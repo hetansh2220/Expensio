@@ -196,8 +196,12 @@ export default function LandingPage() {
           50% { transform: translateY(10px) rotate(-2deg); }
         }
         @keyframes lp-pulse {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.7; }
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        @keyframes gradient-shift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
         }
         .lp-delay-1 { transition-delay: 80ms; }
         .lp-delay-2 { transition-delay: 160ms; }
@@ -211,12 +215,8 @@ export default function LandingPage() {
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/60">
           <div className="max-w-6xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-md shadow-primary/20">
-                <span className="text-sm font-extrabold text-white font-[family-name:var(--font-display)]">
-                  E
-                </span>
-              </div>
-              <span className="text-lg font-bold font-[family-name:var(--font-display)] text-foreground">
+             
+              <span className="text-xl font-bold font-[family-name:var(--font-display)] text-foreground">
                 Expensio
               </span>
             </Link>
@@ -329,230 +329,195 @@ export default function LandingPage() {
           )}
         </nav>
 
-        <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-28 overflow-hidden">
-          <div className="absolute top-16 right-[5%] w-80 h-80 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-[2%] w-64 h-64 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
+        <section className="relative min-h-screen flex items-center pt-20 pb-16 lg:pt-24 lg:pb-24 overflow-hidden">
+          {/* Dynamic Background */}
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Main gradient orbs */}
+            <div className="absolute top-[10%] right-[10%] w-96 h-96 rounded-full bg-primary/15 blur-[100px]" />
+            <div className="absolute bottom-[5%] left-[5%] w-80 h-80 rounded-full bg-savings/10 blur-[80px]" />
+            <div className="absolute top-[40%] left-[30%] w-64 h-64 rounded-full bg-accent/8 blur-[60px]" />
+            
+            {/* Mesh grid */}
+            <div 
+              className="absolute inset-0 opacity-[0.03]"
+              style={{
+                backgroundImage: `radial-gradient(circle at 1px 1px, var(--color-foreground) 1px, transparent 0)`,
+                backgroundSize: '40px 40px'
+              }}
+            />
+          </div>
 
-          <div
-            className="absolute top-32 left-[12%] w-3 h-3 rounded-full bg-primary/25 hidden lg:block"
-            style={{ animation: "lp-float 5s ease-in-out infinite" }}
-          />
-          <div
-            className="absolute top-52 right-[18%] w-5 h-5 rounded-lg bg-accent/15 rotate-45 hidden lg:block"
-            style={{ animation: "lp-float-reverse 6s ease-in-out infinite" }}
-          />
-          <div
-            className="absolute bottom-24 left-[22%] w-4 h-4 rounded-full border-2 border-primary/15 hidden lg:block"
-            style={{ animation: "lp-float 7s ease-in-out infinite" }}
-          />
-          <div
-            className="absolute top-40 right-[8%] w-2 h-2 rounded-full bg-primary-light/30 hidden lg:block"
-            style={{ animation: "lp-pulse 3s ease-in-out infinite" }}
-          />
+          <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-8 w-full">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+              {/* Left Content */}
+              <div className="max-w-2xl">
+                {/* Animated Badge */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-raised border border-border/50 mb-8 shadow-lg shadow-black/5">
+                  <div className="relative">
+                    <div className="w-2 h-2 rounded-full bg-primary"></div>
+                    <div className="absolute inset-0 w-2 h-2 rounded-full bg-primary animate-ping opacity-75"></div>
+                  </div>
+                  <span className="text-xs font-semibold text-muted">Smart Money Management</span>
+                </div>
 
-          <div className="max-w-6xl mx-auto px-5 lg:px-8 flex flex-col lg:flex-row lg:items-center lg:gap-16">
-            <div className="flex-1 lg:max-w-xl">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/15 text-primary text-xs font-semibold mb-6">
-                <HiOutlineSparkles className="w-4 h-4" />
-                Your Financial Wellness Partner
-              </div>
+                {/* Main Headline */}
+                <h1>
+                  <span className="block text-5xl sm:text-6xl lg:text-7xl font-black text-foreground leading-[0.95] tracking-tight">
+                    Master Your
+                  </span>
+                  <span className="block text-5xl sm:text-6xl lg:text-7xl font-black text-primary leading-[0.95] tracking-tight mt-2">
+                    Money Game
+                  </span>
+                </h1>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold font-[family-name:var(--font-display)] text-foreground leading-[1.08] tracking-tight">
-                Take Control of Your{" "}
-                <span className="text-primary relative">
-                  Financial Wellbeing
-                  <svg
-                    className="absolute -bottom-2 left-0 w-full hidden sm:block"
-                    viewBox="0 0 300 12"
-                    fill="none"
-                    preserveAspectRatio="none"
+                {/* Subheadline */}
+                <p className="mt-8 text-xl text-muted leading-relaxed max-w-lg">
+                  Track spending, set budgets, crush saving goals. Your complete financial command center.
+                </p>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-wrap gap-4 mt-10">
+                  <Link
+                    href={ctaHref}
+                    className="group relative px-8 py-4 rounded-2xl bg-primary text-white font-bold text-base overflow-hidden transition-all shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-1"
                   >
-                    <path
-                      d="M2 8c50-6 100-6 150-2s100 2 146-4"
-                      stroke="var(--color-primary)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      opacity="0.3"
-                    />
-                  </svg>
-                </span>
-              </h1>
-
-              <p className="mt-6 text-lg text-muted leading-relaxed max-w-lg">
-                Track spending, manage budgets, crush saving challenges, and
-                build healthier money habits — all in one beautiful dashboard.
-              </p>
-
-              <div className="flex flex-wrap gap-4 mt-8">
-                <Link
-                  href={ctaHref}
-                  className="px-8 py-4 rounded-2xl bg-primary text-white font-semibold text-base hover:bg-primary-dark transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  {ctaText}
-                </Link>
-                <Link
-                  href={ROUTES.LOGIN}
-                  className="px-8 py-4 rounded-2xl bg-surface-raised text-foreground font-semibold text-base border border-border hover:border-primary/30 hover:text-primary transition-all"
-                >
-                  Sign In
-                </Link>
-              </div>
-
-              <div className="flex items-center gap-6 mt-8 text-xs text-muted">
-                <span className="flex items-center gap-1.5">
-                  <HiOutlineCheckCircle className="w-4 h-4 text-primary" />
-                  Free to use
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <HiOutlineCheckCircle className="w-4 h-4 text-primary" />
-                  No credit card needed
-                </span>
-              </div>
-            </div>
-
-            <div className="flex-1 mt-14 lg:mt-0 flex justify-center">
-              <div className="relative w-full max-w-[300px]">
-                <div className="absolute -inset-8 rounded-[3rem] bg-gradient-to-br from-primary/10 to-savings/5 blur-2xl pointer-events-none" />
-
-                <div
-                  className="relative bg-surface-raised rounded-[2rem] shadow-2xl shadow-black/30 border border-border p-5 overflow-hidden"
-                  style={{ animation: "lp-float 6s ease-in-out infinite" }}
-                >
-                  <div className="flex items-center justify-between mb-4 px-0.5">
-                    <span className="text-[10px] font-semibold text-muted font-[family-name:var(--font-mono)]">
-                      9:41
+                    <span className="relative z-10 flex items-center gap-2">
+                      {ctaText}
+                      <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
                     </span>
-                    <div className="flex items-center gap-1">
-                      <div className="w-4 h-2.5 rounded-sm bg-foreground relative">
-                        <div className="absolute inset-[2px] rounded-[1px] bg-primary" style={{ width: "60%" }} />
-                      </div>
+                    <div className="absolute inset-0 bg-primary-dark opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </Link>
+                  <Link
+                    href={ROUTES.LOGIN}
+                    className="px-8 py-4 rounded-2xl text-foreground font-semibold text-base border-2 border-border hover:border-primary/40 hover:bg-surface-raised transition-all"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+
+                {/* Trust indicators */}
+                <div className="flex flex-wrap items-center gap-6 mt-12 pt-8 border-t border-border/50">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <HiOutlineCheckCircle className="w-5 h-5 text-primary" />
                     </div>
-                  </div>
-
-                  <div className="mb-3">
-                    <p className="text-[10px] text-muted">Good morning</p>
-                    <p className="text-sm font-bold font-[family-name:var(--font-display)] text-foreground">
-                      Priya
-                    </p>
-                  </div>
-
-                  <div className="bg-gradient-to-br from-primary to-savings rounded-2xl p-4 mb-3">
-                    <p className="text-[8px] text-white/70 uppercase tracking-wider font-semibold">
-                      Current Balance
-                    </p>
-                    <p className="text-2xl font-extrabold text-white font-[family-name:var(--font-display)] mt-0.5">
-                      ₹42,580
-                    </p>
-                    <div className="flex gap-4 mt-2.5">
-                      <div>
-                        <p className="text-[7px] text-white/60">Income</p>
-                        <p className="text-[10px] font-bold text-white font-[family-name:var(--font-mono)]">
-                          ₹65,000
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-[7px] text-white/60">Spent</p>
-                        <p className="text-[10px] font-bold text-white font-[family-name:var(--font-mono)]">
-                          ₹18,420
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-[7px] text-white/60">Saved</p>
-                        <p className="text-[10px] font-bold text-white font-[family-name:var(--font-mono)]">
-                          ₹4,000
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3 bg-surface-overlay rounded-2xl p-3 mb-3">
-                    <svg
-                      className="w-12 h-12 shrink-0"
-                      viewBox="0 0 60 60"
-                      style={{ transform: "rotate(-90deg)" }}
-                    >
-                      <circle
-                        cx="30"
-                        cy="30"
-                        r={GAUGE_R}
-                        fill="none"
-                        stroke="var(--color-border)"
-                        strokeWidth="4"
-                      />
-                      <circle
-                        cx="30"
-                        cy="30"
-                        r={GAUGE_R}
-                        fill="none"
-                        stroke="var(--color-primary)"
-                        strokeWidth="4"
-                        strokeLinecap="round"
-                        strokeDasharray={GAUGE_C}
-                        strokeDashoffset={GAUGE_C * 0.24}
-                      />
-                    </svg>
                     <div>
-                      <p className="text-lg font-extrabold text-primary font-[family-name:var(--font-display)] leading-none">
-                        76
-                      </p>
-                      <p className="text-[8px] text-muted mt-0.5">
-                        Health Score
-                      </p>
-                    </div>
-                    <div className="ml-auto">
-                      <span className="text-[8px] font-semibold text-primary bg-primary/15 px-2 py-1 rounded-lg">
-                        Good
-                      </span>
+                      <p className="text-sm font-bold text-foreground">Free Forever</p>
+                      <p className="text-xs text-muted">No hidden fees</p>
                     </div>
                   </div>
-
-                  <div className="mb-3">
-                    <div className="flex justify-between mb-1.5">
-                      <span className="text-[9px] text-muted font-semibold">
-                        Budget
-                      </span>
-                      <span className="text-[9px] font-bold text-foreground font-[family-name:var(--font-mono)]">
-                        42%
-                      </span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <HiOutlineSparkles className="w-5 h-5 text-primary" />
                     </div>
-                    <div className="w-full h-2 rounded-full bg-border">
-                      <div
-                        className="h-full rounded-full bg-primary"
-                        style={{ width: "42%" }}
-                      />
+                    <div>
+                      <p className="text-sm font-bold text-foreground">AI Powered</p>
+                      <p className="text-xs text-muted">Smart insights</p>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  <div className="space-y-1.5">
-                    {mockTransactions.map((item) => (
-                      <div
-                        key={item.name}
-                        className="flex items-center gap-2.5 py-1.5"
-                      >
+              {/* Right: Floating Cards */}
+              <div className="relative h-[520px] lg:h-[600px] hidden md:block">
+                {/* Central glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-primary/20 blur-[80px]" />
+
+                {/* Balance Card - Main */}
+                <div className="absolute top-8 left-1/2 -translate-x-1/2 w-72 bg-linear-to-br from-primary via-primary to-savings rounded-3xl p-6 shadow-2xl shadow-primary/30 border border-white/10">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] text-white/60 uppercase tracking-widest font-semibold">Current Balance</span>
+                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">₹</span>
+                    </div>
+                  </div>
+                  <p className="text-4xl font-black text-white tracking-tight">₹42,580</p>
+                  <div className="flex gap-6 mt-5">
+                    <div>
+                      <p className="text-[10px] text-white/50">Income</p>
+                      <p className="text-sm font-bold text-white mt-0.5">₹65,000</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-white/50">Spent</p>
+                      <p className="text-sm font-bold text-white/90 mt-0.5">₹18,420</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-white/50">Saved</p>
+                      <p className="text-sm font-bold text-savings-light mt-0.5">₹4,000</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Health Score Card */}
+                <div className="absolute top-48 left-4 w-44 bg-surface-raised rounded-2xl p-4 shadow-xl border border-border">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <svg className="w-14 h-14" viewBox="0 0 60 60" style={{ transform: "rotate(-90deg)" }}>
+                        <circle cx="30" cy="30" r={GAUGE_R} fill="none" stroke="var(--color-border)" strokeWidth="5" />
+                        <circle 
+                          cx="30" cy="30" r={GAUGE_R} fill="none" stroke="var(--color-primary)" strokeWidth="5" 
+                          strokeLinecap="round" strokeDasharray={GAUGE_C} strokeDashoffset={GAUGE_C * 0.24}
+                        />
+                      </svg>
+                      <span className="absolute inset-0 flex items-center justify-center text-xl font-black text-primary">76</span>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-foreground">Health</p>
+                      <span className="text-[10px] font-semibold text-primary bg-primary/15 px-2 py-0.5 rounded-md">Good</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Challenge Card */}
+                <div className="absolute top-52 right-0 w-48 bg-surface-raised rounded-2xl p-4 shadow-xl border border-border">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-accent/15 flex items-center justify-center">
+                      <HiOutlineTrophy className="w-4 h-4 text-accent" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-foreground">7 Day Streak!</p>
+                      <p className="text-[10px] text-muted">Keep going</p>
+                    </div>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-border overflow-hidden">
+                    <div className="h-full w-[70%] rounded-full bg-gradient-to-r from-accent to-primary" />
+                  </div>
+                  <p className="text-[10px] text-muted mt-2">₹3,500 / ₹5,000</p>
+                </div>
+
+                {/* Transaction Card */}
+                <div className="absolute bottom-24 left-8 w-52 bg-surface-raised rounded-2xl p-4 shadow-xl border border-border">
+                  <p className="text-[10px] text-muted font-semibold mb-3 uppercase tracking-wider">Recent</p>
+                  <div className="space-y-2.5">
+                    {mockTransactions.slice(0, 2).map((item) => (
+                      <div key={item.name} className="flex items-center gap-2.5">
                         <div
-                          className="w-7 h-7 rounded-lg flex items-center justify-center text-[9px] font-bold shrink-0"
-                          style={{
-                            backgroundColor: item.color + "15",
-                            color: item.color,
-                          }}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold"
+                          style={{ backgroundColor: item.color + "15", color: item.color }}
                         >
                           {item.initial}
                         </div>
-                        <p className="text-[10px] font-medium text-foreground flex-1 truncate">
-                          {item.name}
-                        </p>
-                        <span
-                          className={`text-[10px] font-bold font-[family-name:var(--font-mono)] ${
-                            item.amount.startsWith("+")
-                              ? "text-primary"
-                              : "text-foreground"
-                          }`}
-                        >
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-medium text-foreground truncate">{item.name}</p>
+                        </div>
+                        <span className={`text-xs font-bold ${item.amount.startsWith("+") ? "text-primary" : "text-foreground"}`}>
                           {item.amount}
                         </span>
                       </div>
                     ))}
                   </div>
+                </div>
+
+                {/* Budget Card */}
+                <div className="absolute bottom-16 right-4 w-40 bg-surface-raised rounded-2xl p-4 shadow-xl border border-border">
+                  <p className="text-[10px] text-muted font-semibold uppercase tracking-wider">Budget</p>
+                  <p className="text-2xl font-black text-foreground mt-1">42%</p>
+                  <div className="w-full h-1.5 rounded-full bg-border mt-2">
+                    <div className="h-full w-[42%] rounded-full bg-primary" />
+                  </div>
+                  <p className="text-[10px] text-muted mt-2">₹18,900 left</p>
                 </div>
               </div>
             </div>
@@ -594,52 +559,53 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="py-16 lg:py-24 scroll-mt-20">
-          <div className="max-w-6xl mx-auto px-5 lg:px-8">
-            <div className="text-center mb-12 lp-reveal">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/15 text-accent text-xs font-semibold mb-4">
-                Features
+        {/* Features Section - Sticky Scroll */}
+        <section id="features" className="scroll-mt-20">
+          <div className="lg:flex lg:min-h-[300vh]">
+            {/* Sticky Left Panel */}
+            <div className="lg:sticky lg:top-0 lg:h-screen lg:w-1/2 flex items-center bg-background">
+              <div className="w-full px-5 lg:px-12 py-16 lg:py-0">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/15 text-accent text-xs font-semibold mb-6">
+                  Features
+                </div>
+                <h2 className="text-4xl lg:text-5xl font-black text-foreground leading-tight">
+                  Everything You Need to{" "}
+                  <span className="text-primary">Thrive Financially</span>
+                </h2>
+                <p className="mt-6 text-lg text-muted leading-relaxed max-w-md">
+                  A complete toolkit designed around how you actually manage money. Simple, powerful, effective.
+                </p>
+                <div className="hidden lg:flex items-center gap-2 mt-8 text-sm text-muted">
+                  <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                  Scroll to explore
+                </div>
               </div>
-              <h2 className="text-3xl lg:text-4xl font-bold font-[family-name:var(--font-display)] text-foreground">
-                Everything You Need to Thrive Financially
-              </h2>
-              <p className="mt-3 text-muted text-lg max-w-2xl mx-auto">
-                A complete toolkit designed around how Indians actually manage
-                money.
-              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-              {features.map((feature, i) => (
-                <div
-                  key={i}
-                  className={`lp-reveal bg-surface-raised rounded-3xl p-7 border border-border hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 group ${
-                    i === 1
-                      ? "lp-delay-1"
-                      : i === 2
-                      ? "lp-delay-2"
-                      : i === 3
-                      ? "lp-delay-3"
-                      : i === 4
-                      ? "lp-delay-4"
-                      : i === 5
-                      ? "lp-delay-5"
-                      : ""
-                  }`}
-                >
+            {/* Right Scrolling Panel */}
+            <div className="lg:w-1/2 lg:py-[50vh]">
+              <div className="space-y-8 px-5 lg:px-12">
+                {features.map((feature, i) => (
                   <div
-                    className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 ${feature.bgColor} transition-transform duration-300 group-hover:scale-110`}
+                    key={i}
+                    className="group bg-surface-raised rounded-3xl p-8 border border-border hover:border-primary/30 transition-all duration-300"
                   >
-                    {feature.icon}
+                    <div
+                      className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${feature.bgColor} transition-transform duration-300 group-hover:scale-110`}
+                    >
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-foreground mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold font-[family-name:var(--font-display)] text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-muted leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>

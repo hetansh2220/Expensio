@@ -40,6 +40,60 @@ export default function BudgetPage() {
   const [budgetLimit, setBudgetLimit] = useState("");
   const [savingGoal, setSavingGoal] = useState("");
   const [showSetup, setShowSetup] = useState(false);
+  const [needsPercent, setNeedsPercent] = useState(50);
+  const [wantsPercent, setWantsPercent] = useState(30);
+  const [emiPercent, setEmiPercent] = useState(20);
+
+  const limit = Number(budgetLimit) || 0;
+  const needsAmount = Math.round(limit * (needsPercent / 100));
+  const wantsAmount = Math.round(limit * (wantsPercent / 100));
+  const emiAmount = Math.round(limit * (emiPercent / 100));
+  const totalPercent = needsPercent + wantsPercent + emiPercent;
+
+  const handlePercentChange = (category: "needs" | "wants" | "emi", value: number) => {
+    value = Math.max(0, Math.min(100, value));
+    
+    if (category === "needs") {
+      const remaining = 100 - value;
+      const otherTotal = wantsPercent + emiPercent;
+      if (otherTotal === 0) {
+        setNeedsPercent(value);
+        setWantsPercent(Math.round(remaining * 0.6));
+        setEmiPercent(remaining - Math.round(remaining * 0.6));
+      } else {
+        const wantsRatio = wantsPercent / otherTotal;
+        setNeedsPercent(value);
+        setWantsPercent(Math.round(remaining * wantsRatio));
+        setEmiPercent(remaining - Math.round(remaining * wantsRatio));
+      }
+    } else if (category === "wants") {
+      const remaining = 100 - value;
+      const otherTotal = needsPercent + emiPercent;
+      if (otherTotal === 0) {
+        setWantsPercent(value);
+        setNeedsPercent(Math.round(remaining * 0.7));
+        setEmiPercent(remaining - Math.round(remaining * 0.7));
+      } else {
+        const needsRatio = needsPercent / otherTotal;
+        setWantsPercent(value);
+        setNeedsPercent(Math.round(remaining * needsRatio));
+        setEmiPercent(remaining - Math.round(remaining * needsRatio));
+      }
+    } else {
+      const remaining = 100 - value;
+      const otherTotal = needsPercent + wantsPercent;
+      if (otherTotal === 0) {
+        setEmiPercent(value);
+        setNeedsPercent(Math.round(remaining * 0.6));
+        setWantsPercent(remaining - Math.round(remaining * 0.6));
+      } else {
+        const needsRatio = needsPercent / otherTotal;
+        setEmiPercent(value);
+        setNeedsPercent(Math.round(remaining * needsRatio));
+        setWantsPercent(remaining - Math.round(remaining * needsRatio));
+      }
+    }
+  };
 
   const spending = useMemo(() => {
     const expenses = transactions.filter((t) => t.type === "expense");
@@ -63,9 +117,9 @@ export default function BudgetPage() {
         data: {
           monthlyLimit: limit,
           savingGoal: Number(savingGoal) || 0,
-          needsLimit: Math.round(limit * 0.5),
-          wantsLimit: Math.round(limit * 0.3),
-          emiLimit: Math.round(limit * 0.2),
+          needsLimit: needsAmount,
+          wantsLimit: wantsAmount,
+          emiLimit: emiAmount,
         },
       });
       showToast("Budget set!", "success");
@@ -98,7 +152,6 @@ export default function BudgetPage() {
                 className="w-full h-14 pl-10 pr-4 rounded-2xl bg-surface border border-border-subtle text-xl font-bold text-foreground font-[family-name:var(--font-mono)] placeholder:text-muted/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
               />
             </div>
-            <p className="text-xs text-muted mt-2">We suggest 50% Needs, 30% Wants, 20% EMI</p>
           </div>
 
           <div>
@@ -113,6 +166,44 @@ export default function BudgetPage() {
                 className="w-full h-14 pl-10 pr-4 rounded-2xl bg-surface border border-border-subtle text-xl font-bold text-foreground font-[family-name:var(--font-mono)] placeholder:text-muted/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
               />
             </div>
+          </div>
+
+          {/* Budget Subdivisions */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="text-[11px] font-semibold text-muted uppercase tracking-wider">Budget Split</label>
+              <span className="text-xs font-bold px-2 py-1 rounded-lg bg-success/15 text-success">100%</span>
+            </div>
+            
+            {[
+              { label: "Needs", value: needsPercent, amount: needsAmount, color: COLORS.needs, key: "needs" as const },
+              { label: "Wants", value: wantsPercent, amount: wantsAmount, color: COLORS.wants, key: "wants" as const },
+              { label: "EMI", value: emiPercent, amount: emiAmount, color: COLORS.emi, key: "emi" as const },
+            ].map((item) => (
+              <div key={item.key} className="bg-surface-raised rounded-xl p-4 border border-border-subtle">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                    <span className="text-sm font-semibold text-foreground">{item.label}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-muted">{formatCurrency(item.amount)}</span>
+                    <span className="text-sm font-bold text-foreground w-12 text-right">{item.value}%</span>
+                  </div>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={item.value}
+                  onChange={(e) => handlePercentChange(item.key, Number(e.target.value))}
+                  className="w-full h-2 rounded-full appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, ${item.color} 0%, ${item.color} ${item.value}%, var(--surface-overlay) ${item.value}%, var(--surface-overlay) 100%)`,
+                  }}
+                />
+              </div>
+            ))}
           </div>
 
           <button
@@ -149,6 +240,13 @@ export default function BudgetPage() {
           onClick={() => {
             setBudgetLimit(String(budget.monthlyLimit));
             setSavingGoal(String(budget.savingGoal || ""));
+            // Calculate existing percentages from budget
+            const total = budget.monthlyLimit;
+            if (total > 0) {
+              setNeedsPercent(Math.round((budget.needsLimit / total) * 100));
+              setWantsPercent(Math.round((budget.wantsLimit / total) * 100));
+              setEmiPercent(Math.round((budget.emiLimit / total) * 100));
+            }
             setShowSetup(true);
           }}
           className="text-xs text-primary font-semibold px-3 py-1.5 rounded-full bg-primary/15 hover:bg-primary/25 transition-colors"
@@ -157,10 +255,10 @@ export default function BudgetPage() {
         </button>
       </div>
 
-      <div className="lg:grid lg:grid-cols-2 lg:gap-4 space-y-4 lg:space-y-0">
+      <div className="lg:grid lg:grid lg:gap-4 space-y-4 lg:space-y-0">
       <div className="card card-glow p-6 lg:p-7">
         <div className="flex items-center gap-4">
-          <div className="w-32 h-32 lg:w-40 lg:h-40 shrink-0">
+          <div className="w-32 h-32 lg:w-40 lg:h-40 shrink-0 relative">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -179,12 +277,14 @@ export default function BudgetPage() {
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <p className="text-2xl font-extrabold font-[family-name:var(--font-display)]">
+                {usagePercent}<span className="text-xs text-muted">%</span>
+              </p>
+            </div>
           </div>
           <div className="flex-1">
-            <p className="text-3xl font-extrabold font-[family-name:var(--font-display)]">
-              {usagePercent}<span className="text-sm text-muted">%</span>
-            </p>
-            <p className="text-xs text-muted">of {formatCurrency(budget.monthlyLimit)} used</p>
+            <p className="text-xs text-muted mb-1">of {formatCurrency(budget.monthlyLimit)} used</p>
             <div className="mt-3 space-y-2.5">
               {[
                 { label: "Needs", value: spending.needs, limit: budget.needsLimit, color: COLORS.needs },

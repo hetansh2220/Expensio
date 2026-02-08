@@ -11,12 +11,6 @@ import { HiOutlineArrowLeft } from "react-icons/hi2";
 import clsx from "clsx";
 import type { TransactionType, ExpenseCategory } from "@/types/transaction";
 
-const types: { value: TransactionType; label: string; color: string; gradient: string }[] = [
-  { value: "income", label: "Income", color: "text-success", gradient: "from-success/25 to-success/10" },
-  { value: "expense", label: "Expense", color: "text-danger", gradient: "from-danger/25 to-danger/10" },
-  { value: "savings", label: "Savings", color: "text-savings", gradient: "from-savings/25 to-savings/10" },
-];
-
 export default function AddTransactionPage() {
   const router = useRouter();
   const { showToast } = useToast();
@@ -36,7 +30,7 @@ export default function AddTransactionPage() {
     }
 
     try {
-      const data: Record<string, any> = {
+      const data: Record<string, unknown> = {
         type,
         amount: Number(amount),
         description: description || type.charAt(0).toUpperCase() + type.slice(1),
@@ -45,7 +39,7 @@ export default function AddTransactionPage() {
       if (type === "expense") {
         data.category = category;
       }
-      await addMutation.mutateAsync(data as any);
+      await addMutation.mutateAsync(data as Parameters<typeof addMutation.mutateAsync>[0]);
       showToast("Transaction added!", "success");
       router.push(ROUTES.TRANSACTIONS);
     } catch {
@@ -54,54 +48,63 @@ export default function AddTransactionPage() {
   };
 
   return (
-    <div className="py-6 animate-fade-in">
-      <div className="flex items-center gap-3 mb-8">
-        <button
-          onClick={() => router.back()}
-          className="w-11 h-11 rounded-2xl bg-surface-raised border border-border flex items-center justify-center hover:border-primary/30 transition-all"
-        >
-          <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
-        </button>
-        <h1 className="text-xl font-bold font-[family-name:var(--font-display)]">Add Transaction</h1>
-      </div>
+    <div className="min-h-full w-full flex flex-col items-center justify-center py-6">
+      <div className="w-full max-w-lg">
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-8">
+          <button
+            onClick={() => router.back()}
+            className="w-11 h-11 rounded-xl bg-surface-raised border border-border flex items-center justify-center hover:border-primary/30 transition-all"
+          >
+            <HiOutlineArrowLeft className="w-5 h-5 text-muted" />
+          </button>
+          <h1 className="text-xl font-bold text-foreground">Add Transaction</h1>
+        </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 lg:max-w-xl">
+        <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Type Selector */}
         <div className="grid grid-cols-3 gap-2">
-          {types.map((t) => (
+          {(["income", "expense", "savings"] as TransactionType[]).map((t) => (
             <button
-              key={t.value}
+              key={t}
               type="button"
-              onClick={() => setType(t.value)}
+              onClick={() => setType(t)}
               className={clsx(
-                "py-3 rounded-2xl font-semibold text-sm transition-all border",
-                type === t.value
-                  ? `bg-gradient-to-b ${t.gradient} border-transparent ${t.color} shadow-sm`
-                  : "bg-surface-overlay border-border text-muted hover:border-primary/30"
+                "h-12 rounded-xl font-semibold text-sm capitalize transition-all",
+                type === t
+                  ? t === "income"
+                    ? "bg-success/15 text-success"
+                    : t === "expense"
+                    ? "bg-danger/15 text-danger"
+                    : "bg-savings/15 text-savings"
+                  : "bg-surface-raised text-muted hover:bg-surface-overlay"
               )}
             >
-              {t.label}
+              {t}
             </button>
           ))}
         </div>
 
+        {/* Amount */}
         <div>
-          <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Amount</label>
+          <label className="text-xs font-medium text-muted block mb-2">Amount</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-muted/50">₹</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-muted/40">₹</span>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0"
-              className="w-full h-16 pl-12 pr-4 rounded-2xl bg-surface border border-border-subtle text-3xl font-bold text-foreground font-[family-name:var(--font-mono)] placeholder:text-muted/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
               autoFocus
+              className="w-full h-16 pl-12 pr-4 rounded-xl bg-surface border border-border text-3xl font-bold text-foreground placeholder:text-muted/20 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
             />
           </div>
         </div>
 
+        {/* Category (expense only) */}
         {type === "expense" && (
           <div>
-            <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Category</label>
+            <label className="text-xs font-medium text-muted block mb-2">Category</label>
             <div className="grid grid-cols-3 gap-2">
               {EXPENSE_CATEGORIES.map((cat) => (
                 <button
@@ -109,55 +112,58 @@ export default function AddTransactionPage() {
                   type="button"
                   onClick={() => setCategory(cat.value)}
                   className={clsx(
-                    "flex flex-col items-center gap-1 py-3 px-2 rounded-2xl border transition-all",
+                    "h-12 rounded-xl text-sm font-semibold transition-all",
                     category === cat.value
-                      ? "border-transparent shadow-sm"
-                      : "border-border bg-surface-raised hover:border-primary/30"
+                      ? "text-white"
+                      : "bg-surface-raised text-muted hover:bg-surface-overlay"
                   )}
-                  style={category === cat.value ? { backgroundColor: cat.bgColor, borderColor: cat.color + "30" } : {}}
+                  style={category === cat.value ? { backgroundColor: cat.color } : {}}
                 >
-                  <span className="text-xs font-bold" style={{ color: cat.color }}>{cat.label}</span>
-                  <span className="text-[10px] text-muted text-center leading-tight">{cat.description}</span>
+                  {cat.label}
                 </button>
               ))}
             </div>
           </div>
         )}
 
+        {/* Description */}
         <div>
-          <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Description</label>
+          <label className="text-xs font-medium text-muted block mb-2">Description</label>
           <input
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="What was this for?"
-            className="w-full h-12 px-4 rounded-2xl bg-surface border border-border-subtle text-sm text-foreground placeholder:text-muted/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+            className="w-full h-12 px-4 rounded-xl bg-surface border border-border text-sm text-foreground placeholder:text-muted/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
           />
         </div>
 
+        {/* Date */}
         <div>
-          <label className="text-[11px] font-semibold text-muted uppercase tracking-wider block mb-2">Date</label>
+          <label className="text-xs font-medium text-muted block mb-2">Date</label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="w-full h-12 px-4 rounded-2xl bg-surface border border-border-subtle text-sm text-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+            className="w-full h-12 px-4 rounded-xl bg-surface border border-border text-sm text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
           />
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
           disabled={addMutation.isPending || !amount}
           className={clsx(
-            "w-full h-14 rounded-2xl font-semibold text-white text-base shadow-lg transition-all disabled:opacity-50",
-            type === "income" && "bg-gradient-to-r from-success to-success-light hover:shadow-lg hover:shadow-success/25",
-            type === "expense" && "bg-gradient-to-r from-danger to-danger-light hover:shadow-lg hover:shadow-danger/25",
-            type === "savings" && "bg-gradient-to-r from-savings to-savings-light hover:shadow-lg hover:shadow-savings/25"
+            "w-full h-14 rounded-xl font-semibold text-white transition-all disabled:opacity-50",
+            type === "income" && "bg-success hover:bg-success/90",
+            type === "expense" && "bg-danger hover:bg-danger/90",
+            type === "savings" && "bg-savings hover:bg-savings/90"
           )}
         >
           {addMutation.isPending ? "Adding..." : `Add ${type.charAt(0).toUpperCase() + type.slice(1)}`}
         </button>
       </form>
+      </div>
     </div>
   );
 }

@@ -62,10 +62,16 @@ export default function DashboardPage() {
 
   return (
     <div className="py-6 stagger">
+      {/* Dashboard Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl lg:text-3xl font-bold text-foreground tracking-tight">Dashboard</h1>
+        <p className="text-sm text-muted mt-1">Your financial overview at a glance</p>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
 
-      <div className="card card-glow p-6 lg:p-7 lg:col-span-3 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      <div className="card card-glow rounded-xs p-6 lg:p-7 lg:col-span-3 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-xs blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
         <h3 className="text-[11px] font-semibold text-muted uppercase tracking-wider mb-1">Current Balance</h3>
         <p className={clsx(
           "text-3xl lg:text-4xl font-extrabold font-display",
@@ -73,7 +79,6 @@ export default function DashboardPage() {
         )}>
           {formatCurrency(totals.income - totals.expenses - totals.savings)}
         </p>
-        <p className="text-xs text-muted mt-1">Income − Expenses − Savings this month</p>
       </div>
 
       <Link href={ROUTES.TRANSACTIONS} className="card card-glow p-6 lg:col-span-3 block">

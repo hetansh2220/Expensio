@@ -32,15 +32,14 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-savings/5 blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 left-0 w-75 h-75 rounded-full bg-primary-dark/5 blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-sm lg:max-w-4xl lg:flex lg:items-center lg:gap-16 animate-scale-in">
-        <div className="hidden lg:flex lg:flex-col lg:flex-1 lg:pr-8">
+      <div className="w-full max-w-sm lg:max-w-4xl h-[60vh] lg:flex lg:items-start lg:gap-14 animate-scale-in">
+        <div className="hidden lg:flex -mt-4 lg:flex-col lg:flex-1 lg:pr-8">
           <div className="relative inline-flex items-center justify-center w-20 h-20 mb-6">
             <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary to-savings opacity-20 blur-xl" />
-            <div className="relative w-20 h-20 rounded-2xl bg-linear-to-br from-primary to-savings flex items-center justify-center shadow-lg shadow-primary/20">
-              <span className="text-3xl font-extrabold text-white font-[family-name:var(--font-display)]">E</span>
-            </div>
+            
           </div>
-          <h2 className="text-3xl font-bold font-[family-name:var(--font-display)] text-foreground mb-3">Expensio</h2>
+          <h2 className="text-7xl font-bold font-[family-name:var(--font-display)] text-foreground mb-3">Expensio</h2> 
+
           <p className="text-base text-muted leading-relaxed max-w-md">Your personal financial wellbeing companion. Track spending, manage budgets, and build healthier money habits.</p>
         </div>
 
