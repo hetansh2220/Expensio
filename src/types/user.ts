@@ -10,7 +10,7 @@ export interface UserProfile {
   profession: Profession;
   incomeType: IncomeType;
   monthlyIncome: number;
-  salaryDate?: number; // Day of month (1-31) when salary is credited
+  salaryDate?: number;
   currency: "INR";
   onboardingComplete: boolean;
   createdAt: Timestamp;

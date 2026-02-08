@@ -56,7 +56,6 @@ export default function BottomNav() {
 
   return (
     <>
-      {/* More Menu Overlay */}
       {showMore && (
         <div className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm" onClick={() => setShowMore(false)}>
           <div 
@@ -64,7 +63,6 @@ export default function BottomNav() {
             style={{ animation: "scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 mb-1">
               <span className="text-xs font-semibold text-muted uppercase tracking-widest">Quick Access</span>
               <button 
@@ -75,7 +73,6 @@ export default function BottomNav() {
               </button>
             </div>
             
-            {/* Menu Items */}
             <div className="grid grid-cols-2 gap-2 px-1">
               {moreItems.map((item) => {
                 const active = pathname.startsWith(item.href);
@@ -112,7 +109,6 @@ export default function BottomNav() {
         </div>
       )}
 
-      {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
         <div className="mx-3 mb-3">
           <div className="bg-surface/90 backdrop-blur-xl border border-border-subtle/50 rounded-2xl shadow-lg shadow-black/10">

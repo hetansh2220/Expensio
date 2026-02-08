@@ -62,7 +62,6 @@ export default function DashboardPage() {
 
   return (
     <div className="py-6 stagger">
-      {/* Dashboard Header */}
       <div className="mb-6">
         <h1 className="text-2xl lg:text-3xl font-bold text-foreground tracking-tight">Dashboard</h1>
         <p className="text-sm text-muted mt-1">Your financial overview at a glance</p>

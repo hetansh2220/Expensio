@@ -42,14 +42,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-background transition-colors duration-300">
       <Sidebar />
       <div className="lg:ml-72">
-        {/* <TopBar /> */}
         <main className="px-5 pb-28 lg:pb-10 max-w-lg mx-auto lg:max-w-5xl lg:px-8">
           {children}
         </main>
       </div>
       <BottomNav />
       
-      {/* Desktop Floating Action Button */}
       <Link
         href={ROUTES.ADD_TRANSACTION}
         className="hidden xl:flex fixed bottom-8 right-8 z-50 group"

@@ -15,8 +15,11 @@ export default function ChallengeDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { showToast } = useToast();
+ 
+ 
   const { data: challenges = [], isLoading } = useChallenges();
   const checkInMutation = useCheckIn();
+  
   const updateChallenge = useUpdateChallenge();
   const addTransaction = useAddTransaction();
 

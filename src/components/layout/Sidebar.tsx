@@ -61,7 +61,6 @@ export default function Sidebar() {
 
   return (
     <aside className="hidden lg:flex flex-col w-72 h-screen fixed left-0 top-0 bg-surface/80 backdrop-blur-xl border-r border-border-subtle/50 z-40">
-      {/* Logo Section */}
       <div className="px-6 py-5">
         <div className="flex items-center flex-col gap-3 group">
           
@@ -74,10 +73,6 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Add Transaction CTA */}
-      
-
-      {/* Navigation */}
       <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto scrollbar-thin">
         {navItems.map((item) => {
           const active = isActive(item.href);
@@ -92,12 +87,10 @@ export default function Sidebar() {
                   : "text-muted hover:text-foreground hover:bg-surface-overlay"
               )}
             >
-              {/* Active indicator bar */}
               {active && (
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded-r-full bg-current" />
               )}
               
-              {/* Icon with background */}
               <div className={clsx(
                 "flex items-center justify-center w-8 h-8 rounded-lg transition-all",
                 active 
@@ -112,7 +105,6 @@ export default function Sidebar() {
               
               <span className="flex-1">{item.label}</span>
               
-              {/* Hover arrow */}
               <HiOutlineArrowRightOnRectangle className={clsx(
                 "w-4 h-4 opacity-0 -translate-x-2 transition-all",
                 active ? "hidden" : "group-hover:opacity-50 group-hover:translate-x-0"
@@ -122,21 +114,7 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* <div className="px-4 mb-2">
-        <Link
-          href={ROUTES.ADD_TRANSACTION}
-          className="group relative flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl overflow-hidden text-white text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
-        >
-          <div className="absolute inset-0 bg-linear-to-r from-primary via-savings to-primary bg-size-[200%_100%] group-hover:animate-shimmer" />
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-linear-to-r from-primary/20 to-savings/20 blur-xl" />
-          <HiOutlinePlus className="relative w-5 h-5" strokeWidth={2.5} />
-          <span className="relative">New Transaction</span>
-        </Link>
-      </div> */}
-
-      {/* Bottom Section */}
       <div className="px-3 py-3 border-t border-border-subtle/50 space-y-1">
-        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
           className="group flex items-center gap-3 px-3 py-2.5 w-full rounded-xl text-[13px] font-medium text-muted hover:text-foreground hover:bg-surface-overlay transition-all"
@@ -159,7 +137,6 @@ export default function Sidebar() {
           </div>
         </button>
 
-        {/* Settings */}
         <Link
           href={ROUTES.SETTINGS}
           className={clsx(

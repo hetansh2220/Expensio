@@ -330,14 +330,11 @@ export default function LandingPage() {
         </nav>
 
         <section className="relative min-h-screen flex items-center pt-20 pb-16 lg:pt-24 lg:pb-24 overflow-hidden">
-          {/* Dynamic Background */}
           <div className="absolute inset-0 pointer-events-none">
-            {/* Main gradient orbs */}
             <div className="absolute top-[10%] right-[10%] w-96 h-96 rounded-full bg-primary/15 blur-[100px]" />
             <div className="absolute bottom-[5%] left-[5%] w-80 h-80 rounded-full bg-savings/10 blur-[80px]" />
             <div className="absolute top-[40%] left-[30%] w-64 h-64 rounded-full bg-accent/8 blur-[60px]" />
             
-            {/* Mesh grid */}
             <div 
               className="absolute inset-0 opacity-[0.03]"
               style={{
@@ -349,9 +346,7 @@ export default function LandingPage() {
 
           <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-8 w-full">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-              {/* Left Content */}
               <div className="max-w-2xl">
-                {/* Animated Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-raised border border-border/50 mb-8 shadow-lg shadow-black/5">
                   <div className="relative">
                     <div className="w-2 h-2 rounded-full bg-primary"></div>
@@ -360,7 +355,6 @@ export default function LandingPage() {
                   <span className="text-xs font-semibold text-muted">Smart Money Management</span>
                 </div>
 
-                {/* Main Headline */}
                 <h1>
                   <span className="block text-5xl sm:text-6xl lg:text-7xl font-black text-foreground leading-[0.95] tracking-tight">
                     Master Your
@@ -370,12 +364,10 @@ export default function LandingPage() {
                   </span>
                 </h1>
 
-                {/* Subheadline */}
                 <p className="mt-8 text-xl text-muted leading-relaxed max-w-lg">
                   Track spending, set budgets, crush saving goals. Your complete financial command center.
                 </p>
 
-                {/* CTA Buttons */}
                 <div className="flex flex-wrap gap-4 mt-10">
                   <Link
                     href={ctaHref}
@@ -397,7 +389,6 @@ export default function LandingPage() {
                   </Link>
                 </div>
 
-                {/* Trust indicators */}
                 <div className="flex flex-wrap items-center gap-6 mt-12 pt-8 border-t border-border/50">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -420,12 +411,9 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Right: Floating Cards */}
               <div className="relative h-[520px] lg:h-[600px] hidden md:block">
-                {/* Central glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-primary/20 blur-[80px]" />
 
-                {/* Balance Card - Main */}
                 <div className="absolute top-8 left-1/2 -translate-x-1/2 w-72 bg-linear-to-br from-primary via-primary to-savings rounded-3xl p-6 shadow-2xl shadow-primary/30 border border-white/10">
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] text-white/60 uppercase tracking-widest font-semibold">Current Balance</span>
@@ -450,7 +438,6 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                {/* Health Score Card */}
                 <div className="absolute top-48 left-4 w-44 bg-surface-raised rounded-2xl p-4 shadow-xl border border-border">
                   <div className="flex items-center gap-3">
                     <div className="relative">
@@ -470,7 +457,6 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                {/* Challenge Card */}
                 <div className="absolute top-52 right-0 w-48 bg-surface-raised rounded-2xl p-4 shadow-xl border border-border">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-8 h-8 rounded-lg bg-accent/15 flex items-center justify-center">
@@ -487,7 +473,6 @@ export default function LandingPage() {
                   <p className="text-[10px] text-muted mt-2">₹3,500 / ₹5,000</p>
                 </div>
 
-                {/* Transaction Card */}
                 <div className="absolute bottom-24 left-8 w-52 bg-surface-raised rounded-2xl p-4 shadow-xl border border-border">
                   <p className="text-[10px] text-muted font-semibold mb-3 uppercase tracking-wider">Recent</p>
                   <div className="space-y-2.5">
@@ -510,7 +495,6 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                {/* Budget Card */}
                 <div className="absolute bottom-16 right-4 w-40 bg-surface-raised rounded-2xl p-4 shadow-xl border border-border">
                   <p className="text-[10px] text-muted font-semibold uppercase tracking-wider">Budget</p>
                   <p className="text-2xl font-black text-foreground mt-1">42%</p>
@@ -559,10 +543,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Features Section - Sticky Scroll */}
         <section id="features" className="scroll-mt-20">
           <div className="lg:flex lg:min-h-[300vh]">
-            {/* Sticky Left Panel */}
             <div className="lg:sticky lg:top-0 lg:h-screen lg:w-1/2 flex items-center bg-background">
               <div className="w-full px-5 lg:px-12 py-16 lg:py-0">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/15 text-accent text-xs font-semibold mb-6">
@@ -584,7 +566,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Scrolling Panel */}
             <div className="lg:w-1/2 lg:py-[50vh]">
               <div className="space-y-8 px-5 lg:px-12">
                 {features.map((feature, i) => (

@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useAddTransaction } from "@/hooks/useTransactions";
+import { useAddTransaction, useTransactions } from "@/hooks/useTransactions";
 import { useToast } from "@/providers/ToastProvider";
 import { EXPENSE_CATEGORIES } from "@/lib/constants/categories";
 import { ROUTES } from "@/lib/constants/routes";
+import { getCurrentMonth } from "@/lib/utils/dateHelpers";
+import { formatCurrency } from "@/lib/utils/formatCurrency";
 import { Timestamp } from "firebase/firestore";
-import { HiOutlineArrowLeft } from "react-icons/hi2";
+import { HiOutlineArrowLeft, HiOutlineExclamationTriangle } from "react-icons/hi2";
 import clsx from "clsx";
 import type { TransactionType, ExpenseCategory } from "@/types/transaction";
 
@@ -15,12 +17,22 @@ export default function AddTransactionPage() {
   const router = useRouter();
   const { showToast } = useToast();
   const addMutation = useAddTransaction();
+  const month = getCurrentMonth();
+  const { data: transactions = [] } = useTransactions(month);
 
   const [type, setType] = useState<TransactionType>("expense");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState<ExpenseCategory>("needs");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [showInsufficientModal, setShowInsufficientModal] = useState(false);
+
+  const currentBalance = useMemo(() => {
+    const income = transactions.filter((t) => t.type === "income").reduce((s, t) => s + t.amount, 0);
+    const expenses = transactions.filter((t) => t.type === "expense").reduce((s, t) => s + t.amount, 0);
+    const savings = transactions.filter((t) => t.type === "savings").reduce((s, t) => s + t.amount, 0);
+    return income - expenses - savings;
+  }, [transactions]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,10 +41,17 @@ export default function AddTransactionPage() {
       return;
     }
 
+    const transactionAmount = Number(amount);
+
+    if ((type === "expense" || type === "savings") && transactionAmount > currentBalance) {
+      setShowInsufficientModal(true);
+      return;
+    }
+
     try {
       const data: Record<string, unknown> = {
         type,
-        amount: Number(amount),
+        amount: transactionAmount,
         description: description || type.charAt(0).toUpperCase() + type.slice(1),
         date: Timestamp.fromDate(new Date(date)),
       };
@@ -50,7 +69,6 @@ export default function AddTransactionPage() {
   return (
     <div className="min-h-full w-full flex flex-col items-center justify-center py-6">
       <div className="w-full max-w-lg">
-        {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => router.back()}
@@ -62,7 +80,6 @@ export default function AddTransactionPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Type Selector */}
         <div className="grid grid-cols-3 gap-2">
           {(["income", "expense", "savings"] as TransactionType[]).map((t) => (
             <button
@@ -85,7 +102,6 @@ export default function AddTransactionPage() {
           ))}
         </div>
 
-        {/* Amount */}
         <div>
           <label className="text-xs font-medium text-muted block mb-2">Amount</label>
           <div className="relative">
@@ -101,7 +117,6 @@ export default function AddTransactionPage() {
           </div>
         </div>
 
-        {/* Category (expense only) */}
         {type === "expense" && (
           <div>
             <label className="text-xs font-medium text-muted block mb-2">Category</label>
@@ -126,7 +141,6 @@ export default function AddTransactionPage() {
           </div>
         )}
 
-        {/* Description */}
         <div>
           <label className="text-xs font-medium text-muted block mb-2">Description</label>
           <input
@@ -138,7 +152,6 @@ export default function AddTransactionPage() {
           />
         </div>
 
-        {/* Date */}
         <div>
           <label className="text-xs font-medium text-muted block mb-2">Date</label>
           <input
@@ -149,7 +162,6 @@ export default function AddTransactionPage() {
           />
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={addMutation.isPending || !amount}
@@ -164,6 +176,46 @@ export default function AddTransactionPage() {
         </button>
       </form>
       </div>
+
+
+      {showInsufficientModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-surface-raised rounded-2xl p-6 max-w-sm w-full border border-border shadow-2xl">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-full bg-danger/15 flex items-center justify-center mb-4">
+                <HiOutlineExclamationTriangle className="w-8 h-8 text-danger" />
+              </div>
+              <h3 className="text-lg font-bold text-foreground mb-2">Insufficient Balance</h3>
+              <p className="text-sm text-muted mb-4">
+                You don&apos;t have enough balance to complete this transaction.
+              </p>
+              <div className="w-full p-4 rounded-xl bg-surface mb-4">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-xs text-muted">Current Balance</span>
+                  <span className={clsx(
+                    "text-sm font-bold",
+                    currentBalance >= 0 ? "text-success" : "text-danger"
+                  )}>
+                    {formatCurrency(currentBalance)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-xs text-muted">Transaction Amount</span>
+                  <span className="text-sm font-bold text-danger">
+                    {formatCurrency(Number(amount))}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowInsufficientModal(false)}
+                className="w-full h-12 rounded-xl bg-primary text-white font-semibold hover:bg-primary-dark transition-all"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

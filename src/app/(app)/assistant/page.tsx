@@ -12,7 +12,6 @@ import type { ChatMessage, FinancialContext } from "@/types/assistant";
 import { HiOutlinePaperAirplane, HiOutlineSparkles } from "react-icons/hi2";
 import clsx from "clsx";
 
-//quick suggestion
 const quickPrompts = [
   "How is my financial health?",
   "How can I save more?",

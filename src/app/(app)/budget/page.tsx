@@ -168,7 +168,6 @@ export default function BudgetPage() {
             </div>
           </div>
 
-          {/* Budget Subdivisions */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <label className="text-[11px] font-semibold text-muted uppercase tracking-wider">Budget Split</label>
@@ -240,7 +239,6 @@ export default function BudgetPage() {
           onClick={() => {
             setBudgetLimit(String(budget.monthlyLimit));
             setSavingGoal(String(budget.savingGoal || ""));
-            // Calculate existing percentages from budget
             const total = budget.monthlyLimit;
             if (total > 0) {
               setNeedsPercent(Math.round((budget.needsLimit / total) * 100));

@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import Link from "next/link";
 import { useBills, useUpdateBill, useDeleteBill } from "@/hooks/useBills";
-import { useAddTransaction } from "@/hooks/useTransactions";
+import { useAddTransaction, useTransactions } from "@/hooks/useTransactions";
 import { formatCurrency } from "@/lib/utils/formatCurrency";
-import { isOverdue, isDueSoon, getDaysUntilDue } from "@/lib/utils/dateHelpers";
+import { isOverdue, isDueSoon, getDaysUntilDue, getCurrentMonth } from "@/lib/utils/dateHelpers";
 import { ROUTES } from "@/lib/constants/routes";
 import { useToast } from "@/providers/ToastProvider";
 import { Timestamp } from "firebase/firestore";
@@ -24,6 +24,18 @@ export default function BillsPage() {
   const deleteBill = useDeleteBill();
   const addTransaction = useAddTransaction();
   const { showToast } = useToast();
+  const month = getCurrentMonth();
+  const { data: transactions = [] } = useTransactions(month);
+  
+  const [showInsufficientModal, setShowInsufficientModal] = useState(false);
+  const [pendingBillAmount, setPendingBillAmount] = useState(0);
+
+  const currentBalance = useMemo(() => {
+    const income = transactions.filter((t) => t.type === "income").reduce((s, t) => s + t.amount, 0);
+    const expenses = transactions.filter((t) => t.type === "expense").reduce((s, t) => s + t.amount, 0);
+    const savings = transactions.filter((t) => t.type === "savings").reduce((s, t) => s + t.amount, 0);
+    return income - expenses - savings;
+  }, [transactions]);
 
   useEffect(() => {
     if (bills.length === 0) return;
@@ -62,7 +74,6 @@ export default function BillsPage() {
         });
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bills.length]);
 
   const grouped = useMemo(() => {
@@ -86,6 +97,12 @@ export default function BillsPage() {
   const handleMarkPaid = async (billId: string) => {
     const bill = bills.find((b) => b.id === billId);
     if (!bill) return;
+
+    if (bill.amount > currentBalance) {
+      setPendingBillAmount(bill.amount);
+      setShowInsufficientModal(true);
+      return;
+    }
 
     try {
       await addTransaction.mutateAsync({
@@ -258,6 +275,45 @@ export default function BillsPage() {
                 </div>
               )
           )}
+        </div>
+      )}
+
+      {showInsufficientModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-surface-raised rounded-2xl p-6 max-w-sm w-full border border-border shadow-2xl">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-full bg-danger/15 flex items-center justify-center mb-4">
+                <HiOutlineExclamationTriangle className="w-8 h-8 text-danger" />
+              </div>
+              <h3 className="text-lg font-bold text-foreground mb-2">Insufficient Balance</h3>
+              <p className="text-sm text-muted mb-4">
+                You don&apos;t have enough balance to pay this bill.
+              </p>
+              <div className="w-full p-4 rounded-xl bg-surface mb-4">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-xs text-muted">Current Balance</span>
+                  <span className={clsx(
+                    "text-sm font-bold",
+                    currentBalance >= 0 ? "text-success" : "text-danger"
+                  )}>
+                    {formatCurrency(currentBalance)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-xs text-muted">Bill Amount</span>
+                  <span className="text-sm font-bold text-danger">
+                    {formatCurrency(pendingBillAmount)}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowInsufficientModal(false)}
+                className="w-full h-12 rounded-xl bg-primary text-white font-semibold hover:bg-primary-dark transition-all"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
