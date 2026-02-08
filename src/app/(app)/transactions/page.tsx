@@ -165,7 +165,7 @@ export default function TransactionsPage() {
 
       <Link
         href={ROUTES.ADD_TRANSACTION}
-        className="fixed bottom-24 right-6 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-primary/30 flex items-center justify-center z-30 hover:scale-105 active:scale-95 transition-transform lg:hidden"
+        className=" hidden fixed bottom-24 right-6 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-primary/30  items-center justify-center z-30 hover:scale-105 active:scale-95 transition-transform lg:hidden"
       >
         <HiOutlinePlus className="w-7 h-7 text-white" strokeWidth={2.5} />
       </Link>

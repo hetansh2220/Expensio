@@ -53,12 +53,15 @@ function renderMessageContent(content: string): string {
 export default function AssistantPage() {
   const { profile } = useAuth();
   const month = getCurrentMonth();
+  
+  
   const { data: transactions = [] } = useTransactions(month);
   const { data: budget } = useBudget(month);
   const { data: bills = [] } = useBills();
   const { data: challenges = [] } = useChallenges();
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);

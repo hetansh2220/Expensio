@@ -5,9 +5,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import { useToast } from "@/providers/ToastProvider";
 import { createUserProfile } from "@/lib/firebase/firestore";
-import { PROFESSIONS } from "@/lib/constants/professions";
 import { ROUTES } from "@/lib/constants/routes";
-import type { Profession, IncomeType } from "@/types/user";
+import type { IncomeType } from "@/types/user";
 import clsx from "clsx";
 
 export default function OnboardingPage() {
@@ -16,7 +15,6 @@ export default function OnboardingPage() {
   const { showToast } = useToast();
 
   const [step, setStep] = useState(0);
-  const [profession, setProfession] = useState<Profession | "">("");
   const [incomeType, setIncomeType] = useState<IncomeType | "">("");
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [salaryDate, setSalaryDate] = useState("");
@@ -28,13 +26,12 @@ export default function OnboardingPage() {
   }, [user, profile, loading, router]);
 
   const handleComplete = async () => {
-    if (!user || !profession || !incomeType) return;
+    if (!user || !incomeType) return;
     setSaving(true);
     try {
       await createUserProfile(user.uid, {
         email: user.email || "",
         displayName: user.displayName || "User",
-        profession: profession as Profession,
         incomeType: incomeType as IncomeType,
         monthlyIncome: Number(monthlyIncome) || 0,
         ...(incomeType === "fixed" && salaryDate ? { salaryDate: Number(salaryDate) } : {}),
@@ -66,7 +63,7 @@ export default function OnboardingPage() {
 
       <div className="w-full max-w-sm lg:max-w-md animate-fade-in">
         <div className="flex items-center justify-center gap-2 mb-10">
-          {(incomeType === "fixed" ? [0, 1, 2, 3] : [0, 1, 2]).map((i) => (
+          {(incomeType === "fixed" ? [0, 1, 2] : [0]).map((i) => (
             <div
               key={i}
               className={clsx(
@@ -82,42 +79,6 @@ export default function OnboardingPage() {
         </div>
 
         {step === 0 && (
-          <div className="animate-scale-in">
-            <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">What do you do?</h2>
-            <p className="text-sm text-muted text-center mb-8">This helps us personalize your experience</p>
-
-            <div className="grid grid-cols-2 gap-4">
-              {PROFESSIONS.map((p) => (
-                <button
-                  key={p.value}
-                  onClick={() => setProfession(p.value)}
-                  className={clsx(
-                    "relative flex flex-col items-center gap-3 p-6 rounded-2xl border transition-all",
-                    profession === p.value
-                      ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
-                      : "border-border-subtle bg-surface-raised hover:border-border hover:bg-surface-overlay"
-                  )}
-                >
-                  {profession === p.value && (
-                    <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/5 to-savings/5 pointer-events-none" />
-                  )}
-                  <span className="text-4xl relative">{p.icon}</span>
-                  <span className="text-sm font-semibold text-foreground relative">{p.label}</span>
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setStep(1)}
-              disabled={!profession}
-              className="w-full h-12 mt-8 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-sm disabled:opacity-40 transition-all hover:shadow-lg hover:shadow-primary/25"
-            >
-              Continue
-            </button>
-          </div>
-        )}
-
-        {step === 1 && (
           <div className="animate-scale-in">
             <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">Income type</h2>
             <p className="text-sm text-muted text-center mb-8">How do you earn your income?</p>
@@ -165,30 +126,20 @@ export default function OnboardingPage() {
               </button>
             </div>
 
-            <div className="flex gap-3 mt-8">
-              <button
-                onClick={() => setStep(0)}
-                className="flex-1 h-12 rounded-2xl border border-border-subtle text-sm font-semibold text-muted hover:text-foreground hover:border-border transition-all"
-              >
-                Back
-              </button>
-              <button
-                onClick={() => setStep(2)}
-                disabled={!incomeType}
-                className="flex-[2] h-12 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-sm disabled:opacity-40 transition-all hover:shadow-lg hover:shadow-primary/25"
-              >
-                Continue
-              </button>
-            </div>
+            <button
+              onClick={() => incomeType === "variable" ? handleComplete() : setStep(1)}
+              disabled={!incomeType || (incomeType === "variable" && saving)}
+              className="w-full h-12 mt-8 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-sm disabled:opacity-40 transition-all hover:shadow-lg hover:shadow-primary/25"
+            >
+              {incomeType === "variable" ? (saving ? "Setting up..." : "Get Started") : "Continue"}
+            </button>
           </div>
         )}
 
-        {step === 2 && (
+        {step === 1 && incomeType === "fixed" && (
           <div className="animate-scale-in">
             <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">Monthly income</h2>
-            <p className="text-sm text-muted text-center mb-8">
-              {incomeType === "variable" ? "Enter your average monthly income" : "Enter your monthly salary"}
-            </p>
+            <p className="text-sm text-muted text-center mb-8">Enter your monthly salary</p>
 
             <div className="relative">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl font-bold text-muted">₹</span>
@@ -220,33 +171,23 @@ export default function OnboardingPage() {
 
             <div className="flex gap-3 mt-8">
               <button
-                onClick={() => setStep(1)}
+                onClick={() => setStep(0)}
                 className="flex-1 h-12 rounded-2xl border border-border-subtle text-sm font-semibold text-muted hover:text-foreground hover:border-border transition-all"
               >
                 Back
               </button>
-              {incomeType === "fixed" ? (
-                <button
-                  onClick={() => setStep(3)}
-                  disabled={!monthlyIncome}
-                  className="flex-[2] h-12 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-sm disabled:opacity-40 transition-all hover:shadow-lg hover:shadow-primary/25"
-                >
-                  Continue
-                </button>
-              ) : (
-                <button
-                  onClick={handleComplete}
-                  disabled={saving || !monthlyIncome}
-                  className="flex-[2] h-12 rounded-2xl bg-gradient-to-r from-success to-savings text-white font-semibold text-sm disabled:opacity-40 transition-all hover:shadow-lg hover:shadow-success/25"
-                >
-                  {saving ? "Setting up..." : "Get Started"}
-                </button>
-              )}
+              <button
+                onClick={() => setStep(2)}
+                disabled={!monthlyIncome}
+                className="flex-[2] h-12 rounded-2xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-sm disabled:opacity-40 transition-all hover:shadow-lg hover:shadow-primary/25"
+              >
+                Continue
+              </button>
             </div>
           </div>
         )}
 
-        {step === 3 && incomeType === "fixed" && (
+        {step === 2 && incomeType === "fixed" && (
           <div className="animate-scale-in">
             <h2 className="text-2xl font-bold font-[family-name:var(--font-display)] text-center text-foreground mb-2">Salary date</h2>
             <p className="text-sm text-muted text-center mb-8">
@@ -276,7 +217,7 @@ export default function OnboardingPage() {
 
             <div className="flex gap-3 mt-8">
               <button
-                onClick={() => setStep(2)}
+                onClick={() => setStep(1)}
                 className="flex-1 h-12 rounded-2xl border border-border-subtle text-sm font-semibold text-muted hover:text-foreground hover:border-border transition-all"
               >
                 Back

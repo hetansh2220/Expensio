@@ -190,17 +190,56 @@ export default function BudgetPage() {
                     <span className="text-sm font-bold text-foreground w-12 text-right">{item.value}%</span>
                   </div>
                 </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={item.value}
-                  onChange={(e) => handlePercentChange(item.key, Number(e.target.value))}
-                  className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                  style={{
-                    background: `linear-gradient(to right, ${item.color} 0%, ${item.color} ${item.value}%, var(--surface-overlay) ${item.value}%, var(--surface-overlay) 100%)`,
-                  }}
-                />
+             <input
+  type="range"
+  min="0"
+  max="100"
+  value={item.value}
+  onChange={(e) =>
+    handlePercentChange(item.key, Number(e.target.value))
+  }
+  className="
+  border-1 
+    w-full h-2 rounded-full appearance-none cursor-pointer
+    bg-[var(--surface-overlay)]
+    transition-all
+
+    [&::-webkit-slider-runnable-track]:h-2
+    [&::-webkit-slider-runnable-track]:rounded-full
+
+    [&::-webkit-slider-thumb]:appearance-none
+    [&::-webkit-slider-thumb]:h-5
+    [&::-webkit-slider-thumb]:w-5
+    [&::-webkit-slider-thumb]:rounded-full
+    [&::-webkit-slider-thumb]:bg-white
+    [&::-webkit-slider-thumb]:border-4
+    [&::-webkit-slider-thumb]:shadow-md
+    [&::-webkit-slider-thumb]:-mt-1.5
+    [&::-webkit-slider-thumb]:transition
+    [&::-webkit-slider-thumb]:hover:scale-110
+
+    [&::-moz-range-track]:h-2
+    [&::-moz-range-track]:rounded-full
+
+    [&::-moz-range-thumb]:h-5
+    [&::-moz-range-thumb]:w-5
+    [&::-moz-range-thumb]:rounded-full
+    [&::-moz-range-thumb]:bg-white
+    [&::-moz-range-thumb]:border-4
+    [&::-moz-range-thumb]:shadow-md
+  "
+  style={{
+    background: `linear-gradient(
+      to right,
+      ${item.color} 0%,
+      ${item.color} ${item.value}%,
+      var(--surface-overlay) ${item.value}%,
+      var(--surface-overlay) 100%
+    )`,
+    color: item.color, // thumb border uses this
+  }}
+/>
+
               </div>
             ))}
           </div>

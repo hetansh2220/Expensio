@@ -50,7 +50,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       
       <Link
         href={ROUTES.ADD_TRANSACTION}
-        className="hidden xl:flex fixed bottom-8 right-8 z-50 group"
+        className="hidden lg:flex fixed bottom-8 right-8 z-50 group"
       >
         <div className="absolute inset-0 rounded-full bg-linear-to-br from-primary to-savings opacity-40 blur-xl group-hover:opacity-70 transition-opacity" />
         <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-linear-to-br from-primary to-savings shadow-2xl shadow-primary/40 hover:scale-110 active:scale-95 transition-transform duration-200">
