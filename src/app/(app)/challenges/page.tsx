@@ -27,7 +27,6 @@ export default function ChallengesPage() {
     const all = generateChallengeSuggestions(
       profile.monthlyIncome,
       totalExpenses,
-      profile.profession,
       profile.incomeType
     );
     const existingTitles = new Set(challenges.map((c) => c.title));

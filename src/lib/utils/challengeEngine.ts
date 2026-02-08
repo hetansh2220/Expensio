@@ -1,4 +1,4 @@
-import type { Profession, IncomeType } from "@/types/user";
+import type { IncomeType } from "@/types/user";
 
 export interface ChallengeSuggestion {
   title: string;
@@ -12,7 +12,6 @@ export interface ChallengeSuggestion {
 export function generateChallengeSuggestions(
   monthlyIncome: number,
   totalExpenses: number,
-  profession: Profession,
   incomeType: IncomeType
 ): ChallengeSuggestion[] {
   const suggestions: ChallengeSuggestion[] = [];
@@ -95,50 +94,6 @@ export function generateChallengeSuggestions(
       frequency: "weekly",
       perPeriodTarget: cutBack,
       durationDays: 21,
-    });
-  }
-
-  if (profession === "student") {
-    suggestions.push({
-      title: "Micro Saver",
-      description: "Save just ₹20 per day. It adds up to ₹600 in a month!",
-      targetAmount: 600,
-      frequency: "daily",
-      perPeriodTarget: 20,
-      durationDays: 30,
-    });
-
-    suggestions.push({
-      title: "Textbook Fund",
-      description: "Save ₹50 daily for 2 weeks to build a ₹700 fund for books or supplies.",
-      targetAmount: 700,
-      frequency: "daily",
-      perPeriodTarget: 50,
-      durationDays: 14,
-    });
-  }
-
-  if (profession === "freelancer") {
-    const gig = Math.max(500, Math.round(disposable * 0.1 / 100) * 100);
-    suggestions.push({
-      title: "Freelance Buffer Fund",
-      description: `Save ₹${gig} weekly to build a buffer for slow months.`,
-      targetAmount: gig * 4,
-      frequency: "weekly",
-      perPeriodTarget: gig,
-      durationDays: 28,
-    });
-  }
-
-  if (profession === "business_owner") {
-    const bizSave = Math.max(1000, Math.round((monthlyIncome * 0.08) / 500) * 500);
-    suggestions.push({
-      title: "Business Emergency Fund",
-      description: `Set aside ₹${bizSave} weekly to build a business safety net.`,
-      targetAmount: bizSave * 4,
-      frequency: "weekly",
-      perPeriodTarget: bizSave,
-      durationDays: 28,
     });
   }
 

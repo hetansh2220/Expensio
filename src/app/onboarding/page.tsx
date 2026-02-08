@@ -32,6 +32,7 @@ export default function OnboardingPage() {
       await createUserProfile(user.uid, {
         email: user.email || "",
         displayName: user.displayName || "User",
+        profession: "individual",
         incomeType: incomeType as IncomeType,
         monthlyIncome: Number(monthlyIncome) || 0,
         ...(incomeType === "fixed" && salaryDate ? { salaryDate: Number(salaryDate) } : {}),
